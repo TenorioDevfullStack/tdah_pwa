@@ -1,0 +1,18 @@
+# Normalize line endings to LF in the repository and keep CRLF on checkout for Windows
+* text=auto
+
+# Ensure common web files are treated as text
+*.js text
+*.jsx text
+*.json text
+*.css text
+*.html text
+*.md text
+
+# Binary files
+/public/icons/* binary
+/public/*.png binary
+/public/*.ico binary
+
+# Prevent executable bit changes
+* -text

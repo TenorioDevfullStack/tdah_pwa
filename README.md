@@ -65,3 +65,15 @@ npm install
 npm run dev
 # Acesse: http://localhost:3000
 ```
+
+## 📦 CI / Build
+
+Um workflow de GitHub Actions foi adicionado (`.github/workflows/ci.yml`) que roda o build em pushes/pull requests para `main`.
+
+Para gerar um build localmente:
+
+```powershell
+npm ci
+npm run build
+# Em produção, use `npm run start` para iniciar o servidor criado pelo Next.js
+```
