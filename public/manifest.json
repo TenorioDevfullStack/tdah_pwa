@@ -1,21 +1,25 @@
 {
-  "name": "Minha Rotina (PWA)",
+  "name": "Rotina TDAH",
   "short_name": "Rotina",
-  "description": "PWA para rotinas com TDAH: tarefas, estudos, tempo, finan\u00e7as.",
-  "start_url": "/",
+  "description": "App de rotina para TDAH — tarefas, foco, estudos e finanças.",
+  "start_url": "/?v=logo1",
   "display": "standalone",
-  "background_color": "#0b0f19",
-  "theme_color": "#4f46e5",
+  "background_color": "#90BFFF",
+  "theme_color": "#90BFFF",
   "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
     {
-      "src": "/icons/icon-192.png",
+      "src": "/icons/maskable-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
-      "src": "/icons/icon-512.png",
+      "src": "/icons/maskable-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
