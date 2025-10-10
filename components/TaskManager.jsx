@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { load, save } from "@/lib/storage";
 
 function uid() {
@@ -15,10 +15,19 @@ export default function TaskManager() {
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState("Todas");
   const [sort, setSort] = useState("data");
+  const searchRef = useRef(null);
 
   useEffect(() => {
     save("tasks", tasks);
   }, [tasks]);
+
+  useEffect(() => {
+    const focusSearch = () => {
+      searchRef.current?.focus();
+    };
+    window.addEventListener("focus-task-search", focusSearch);
+    return () => window.removeEventListener("focus-task-search", focusSearch);
+  }, []);
 
   function addTask(e) {
     e.preventDefault();
@@ -51,8 +60,6 @@ export default function TaskManager() {
       if (!t) return prev;
       const nowDone = !t.done;
       let next = prev.map((x) => (x.id === id ? { ...x, done: nowDone } : x));
-
-      // ao concluir tarefa recorrente (com due), cria a próxima ocorrência
       if (
         nowDone &&
         t.due &&
@@ -100,7 +107,6 @@ export default function TaskManager() {
     return list;
   }, [tasks, q, filter, sort]);
 
-  // notificação simples no primeiro carregamento
   useEffect(() => {
     if (typeof window === "undefined") return;
     if ("Notification" in window && Notification.permission === "default") {
@@ -117,7 +123,7 @@ export default function TaskManager() {
         body: dueToday.map((t) => t.title).join(", "),
       });
     }
-  }, []); // apenas no primeiro load
+  }, []);
 
   return (
     <div className="card">
@@ -150,6 +156,7 @@ export default function TaskManager() {
 
       <div className="row" style={{ marginTop: 8 }}>
         <input
+          ref={searchRef}
           className="input"
           placeholder="Buscar..."
           value={q}

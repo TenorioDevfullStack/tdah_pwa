@@ -6,12 +6,13 @@ import Pomodoro from "@/components/Pomodoro";
 import StudyPlanner from "@/components/StudyPlanner";
 import Finance from "@/components/Finance";
 import QuickNotes from "@/components/QuickNotes";
-import Settings from "@/components/Settings"; // <— novo import
+import Settings from "@/components/Settings";
+import Habits from "@/components/Habits";
 
 export default function Page() {
   const [active, setActive] = useState("tarefas");
 
-  // Hint de instalação PWA
+  // PWA install hint
   useEffect(() => {
     if (typeof window === "undefined") return;
     window.addEventListener("beforeinstallprompt", (e) => {
@@ -28,6 +29,49 @@ export default function Page() {
     });
   }, []);
 
+  // ⌨️ Atalhos globais
+  useEffect(() => {
+    function onKey(e) {
+      // Ctrl+1..7 -> troca de abas
+      if (e.ctrlKey) {
+        const map = {
+          1: "tarefas",
+          2: "foco",
+          3: "estudos",
+          4: "financas",
+          5: "notas",
+          6: "habitos",
+          7: "config",
+        };
+        if (map[e.key]) {
+          setActive(map[e.key]);
+          e.preventDefault();
+          return;
+        }
+      }
+      // '/' -> focar busca em tarefas
+      if (e.key === "/") {
+        if (active !== "tarefas") setActive("tarefas");
+        // dispara evento para o TaskManager focar a busca
+        setTimeout(
+          () => window.dispatchEvent(new Event("focus-task-search")),
+          0
+        );
+        e.preventDefault();
+        return;
+      }
+      // Espaço -> play/pause do Pomodoro quando na aba foco
+      if (e.key === " " || e.code === "Space") {
+        if (active === "foco") {
+          window.dispatchEvent(new Event("pomodoro-toggle"));
+          e.preventDefault();
+        }
+      }
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active]);
+
   return (
     <div>
       <Tabs
@@ -37,10 +81,12 @@ export default function Page() {
           estudos: "Estudos",
           financas: "Finanças",
           notas: "Notas",
-          config: "Configurações", // <— nova aba
+          habitos: "Hábitos",
+          config: "Configurações",
         }}
         onChange={setActive}
       />
+
       {active === "tarefas" && (
         <div className="grid">
           <TaskManager />
@@ -51,19 +97,21 @@ export default function Page() {
       {active === "estudos" && <StudyPlanner />}
       {active === "financas" && <Finance />}
       {active === "notas" && <QuickNotes />}
-      {active === "config" && <Settings />} {/* <— novo conteúdo */}
+      {active === "habitos" && <Habits />}
+      {active === "config" && <Settings />}
+
       <div style={{ marginTop: 16 }}>
         <button id="install-btn" className="button" style={{ display: "none" }}>
           Instalar no dispositivo
         </button>
         <div className="small">
-          Para receber alertas: permita notificações no navegador.
+          Atalhos: Ctrl+1..7 (abas), / (buscar tarefas), Espaço (Pomodoro)
         </div>
       </div>
+
       <div className="notice small" style={{ marginTop: 12 }}>
-        ⚠️ Lembrete: notificações agendadas em PWA funcionam enquanto o app
-        estiver aberto. Para lembretes robustos (push em segundo plano), podemos
-        adicionar backend + push depois.
+        ⚠️ Notificações agendadas funcionam com o app aberto. Para push em
+        segundo plano, depois integramos Firebase Cloud Messaging.
       </div>
     </div>
   );
