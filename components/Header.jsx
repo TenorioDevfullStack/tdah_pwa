@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 function useTheme() {
   const [theme, setTheme] = useState("dark");
@@ -31,22 +32,23 @@ export default function Header() {
 
   return (
     <header className="header">
-      <div className="brand">
-        <div className="logo">R</div>
+      <div className="brand" style={{ gap: "14px" }}>
+        <Image
+          src="/icons/icon-192.png"
+          alt="Logo Rotina TDAH"
+          width={42}
+          height={42}
+          style={{ borderRadius: "10px" }}
+        />
         <div>
-          <div style={{ fontWeight: 800 }}>Minha Rotina</div>
-          <div className="small">PWA offline • Instale no celular</div>
+          <div style={{ fontWeight: 800, fontSize: "1.1rem" }}>Rotina TDAH</div>
+          <div className="small">PWA offline • Foco, Tarefas e Organização</div>
         </div>
       </div>
       <div className="row">
         <button className="theme-toggle" onClick={toggle}>
           {theme === "dark" ? "🌙 Escuro" : "☀️ Claro"}
         </button>
-        <div className="small">
-          Atalhos: <span className="kbd">Ctrl</span>+
-          <span className="kbd">1..7</span>, <span className="kbd">/</span>,{" "}
-          <span className="kbd">Espaço</span>
-        </div>
       </div>
     </header>
   );
