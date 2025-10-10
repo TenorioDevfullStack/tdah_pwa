@@ -10,8 +10,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" href="/public/icons/favicon.ico" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icons/favicon.ico" />
         <meta name="theme-color" content="#4f46e5" />
         <meta
           name="viewport"
