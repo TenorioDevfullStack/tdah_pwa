@@ -39,12 +39,14 @@ export default function Header() {
           width={42}
           height={42}
           style={{ borderRadius: "10px" }}
+          priority
         />
         <div>
           <div style={{ fontWeight: 800, fontSize: "1.1rem" }}>Rotina TDAH</div>
           <div className="small">PWA offline • Foco, Tarefas e Organização</div>
         </div>
       </div>
+
       <div className="row">
         <button className="theme-toggle" onClick={toggle}>
           {theme === "dark" ? "🌙 Escuro" : "☀️ Claro"}
