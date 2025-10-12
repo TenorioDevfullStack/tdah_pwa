@@ -158,6 +158,16 @@ a {
 .tab-ic { opacity: 0.9; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; }
 .tab-ic > svg { width: 16px; height: 16px; }
 .tab.active .tab-ic { opacity: 1; }
+
+/* Tab icon colors */
+.tab[data-tab="tarefas"] .tab-ic { color: #3b82f6; }
+.tab[data-tab="foco"] .tab-ic { color: #ef4444; }
+.tab[data-tab="estudos"] .tab-ic { color: #0ea5e9; }
+.tab[data-tab="financas"] .tab-ic { color: #10b981; }
+.tab[data-tab="notas"] .tab-ic { color: #f59e0b; }
+.tab[data-tab="habitos"] .tab-ic { color: #8b5cf6; }
+.tab[data-tab="insights"] .tab-ic { color: #06b6d4; }
+.tab[data-tab="config"] .tab-ic { color: #64748b; }
 .grid {
   display: grid;
   grid-template-columns: 1fr;
