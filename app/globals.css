@@ -236,6 +236,39 @@ a {
 .tab-scope[data-active-tab="config"] .button.primary { border-color: rgba(100,116,139,0.6); box-shadow: 0 0 0 1px rgba(100,116,139,0.25) inset; }
 .tab-scope[data-active-tab="config"] .button.primary:hover { border-color: rgba(100,116,139,0.85); }
 .tab-scope[data-active-tab="config"] .badge { border-color: rgba(100,116,139,0.5); }
+
+/* Inputs/selects/textarea focus accents by active tab */
+.tab-scope[data-active-tab="tarefas"] .input:focus,
+.tab-scope[data-active-tab="tarefas"] .select:focus,
+.tab-scope[data-active-tab="tarefas"] textarea:focus { border-color: rgba(59,130,246,0.7); box-shadow: 0 0 0 3px rgba(59,130,246,0.35); }
+
+.tab-scope[data-active-tab="foco"] .input:focus,
+.tab-scope[data-active-tab="foco"] .select:focus,
+.tab-scope[data-active-tab="foco"] textarea:focus { border-color: rgba(239,68,68,0.7); box-shadow: 0 0 0 3px rgba(239,68,68,0.35); }
+
+.tab-scope[data-active-tab="estudos"] .input:focus,
+.tab-scope[data-active-tab="estudos"] .select:focus,
+.tab-scope[data-active-tab="estudos"] textarea:focus { border-color: rgba(14,165,233,0.7); box-shadow: 0 0 0 3px rgba(14,165,233,0.35); }
+
+.tab-scope[data-active-tab="financas"] .input:focus,
+.tab-scope[data-active-tab="financas"] .select:focus,
+.tab-scope[data-active-tab="financas"] textarea:focus { border-color: rgba(16,185,129,0.7); box-shadow: 0 0 0 3px rgba(16,185,129,0.35); }
+
+.tab-scope[data-active-tab="notas"] .input:focus,
+.tab-scope[data-active-tab="notas"] .select:focus,
+.tab-scope[data-active-tab="notas"] textarea:focus { border-color: rgba(245,158,11,0.7); box-shadow: 0 0 0 3px rgba(245,158,11,0.35); }
+
+.tab-scope[data-active-tab="habitos"] .input:focus,
+.tab-scope[data-active-tab="habitos"] .select:focus,
+.tab-scope[data-active-tab="habitos"] textarea:focus { border-color: rgba(139,92,246,0.7); box-shadow: 0 0 0 3px rgba(139,92,246,0.35); }
+
+.tab-scope[data-active-tab="insights"] .input:focus,
+.tab-scope[data-active-tab="insights"] .select:focus,
+.tab-scope[data-active-tab="insights"] textarea:focus { border-color: rgba(6,182,212,0.7); box-shadow: 0 0 0 3px rgba(6,182,212,0.35); }
+
+.tab-scope[data-active-tab="config"] .input:focus,
+.tab-scope[data-active-tab="config"] .select:focus,
+.tab-scope[data-active-tab="config"] textarea:focus { border-color: rgba(100,116,139,0.7); box-shadow: 0 0 0 3px rgba(100,116,139,0.35); }
 .grid {
   display: grid;
   grid-template-columns: 1fr;
