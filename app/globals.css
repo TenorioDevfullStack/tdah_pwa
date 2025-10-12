@@ -203,6 +203,39 @@ a {
 .tab-scope[data-active-tab="habitos"] .card h3 { color: #8b5cf6; }
 .tab-scope[data-active-tab="insights"] .card h3 { color: #06b6d4; }
 .tab-scope[data-active-tab="config"] .card h3 { color: #64748b; }
+
+/* Button.primary and badge accents by active tab */
+.tab-scope[data-active-tab="tarefas"] .button.primary { border-color: rgba(59,130,246,0.6); box-shadow: 0 0 0 1px rgba(59,130,246,0.25) inset; }
+.tab-scope[data-active-tab="tarefas"] .button.primary:hover { border-color: rgba(59,130,246,0.85); }
+.tab-scope[data-active-tab="tarefas"] .badge { border-color: rgba(59,130,246,0.5); }
+
+.tab-scope[data-active-tab="foco"] .button.primary { border-color: rgba(239,68,68,0.6); box-shadow: 0 0 0 1px rgba(239,68,68,0.25) inset; }
+.tab-scope[data-active-tab="foco"] .button.primary:hover { border-color: rgba(239,68,68,0.85); }
+.tab-scope[data-active-tab="foco"] .badge { border-color: rgba(239,68,68,0.5); }
+
+.tab-scope[data-active-tab="estudos"] .button.primary { border-color: rgba(14,165,233,0.6); box-shadow: 0 0 0 1px rgba(14,165,233,0.25) inset; }
+.tab-scope[data-active-tab="estudos"] .button.primary:hover { border-color: rgba(14,165,233,0.85); }
+.tab-scope[data-active-tab="estudos"] .badge { border-color: rgba(14,165,233,0.5); }
+
+.tab-scope[data-active-tab="financas"] .button.primary { border-color: rgba(16,185,129,0.6); box-shadow: 0 0 0 1px rgba(16,185,129,0.25) inset; }
+.tab-scope[data-active-tab="financas"] .button.primary:hover { border-color: rgba(16,185,129,0.85); }
+.tab-scope[data-active-tab="financas"] .badge { border-color: rgba(16,185,129,0.5); }
+
+.tab-scope[data-active-tab="notas"] .button.primary { border-color: rgba(245,158,11,0.6); box-shadow: 0 0 0 1px rgba(245,158,11,0.25) inset; }
+.tab-scope[data-active-tab="notas"] .button.primary:hover { border-color: rgba(245,158,11,0.85); }
+.tab-scope[data-active-tab="notas"] .badge { border-color: rgba(245,158,11,0.5); }
+
+.tab-scope[data-active-tab="habitos"] .button.primary { border-color: rgba(139,92,246,0.6); box-shadow: 0 0 0 1px rgba(139,92,246,0.25) inset; }
+.tab-scope[data-active-tab="habitos"] .button.primary:hover { border-color: rgba(139,92,246,0.85); }
+.tab-scope[data-active-tab="habitos"] .badge { border-color: rgba(139,92,246,0.5); }
+
+.tab-scope[data-active-tab="insights"] .button.primary { border-color: rgba(6,182,212,0.6); box-shadow: 0 0 0 1px rgba(6,182,212,0.25) inset; }
+.tab-scope[data-active-tab="insights"] .button.primary:hover { border-color: rgba(6,182,212,0.85); }
+.tab-scope[data-active-tab="insights"] .badge { border-color: rgba(6,182,212,0.5); }
+
+.tab-scope[data-active-tab="config"] .button.primary { border-color: rgba(100,116,139,0.6); box-shadow: 0 0 0 1px rgba(100,116,139,0.25) inset; }
+.tab-scope[data-active-tab="config"] .button.primary:hover { border-color: rgba(100,116,139,0.85); }
+.tab-scope[data-active-tab="config"] .badge { border-color: rgba(100,116,139,0.5); }
 .grid {
   display: grid;
   grid-template-columns: 1fr;
