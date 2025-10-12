@@ -2,7 +2,10 @@ export const metadata = {
   title: "Rotina TDAH",
   description: "App de rotina para TDAH — tarefas, foco, estudos e finanças.",
   applicationName: "Rotina TDAH",
-  themeColor: "#90BFFF",
+  // Define base absoluto para resolver Open Graph e Twitter images
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+  ),
   icons: { icon: "/favicon.ico" },
   openGraph: {
     title: "Rotina TDAH",
@@ -18,6 +21,11 @@ export const metadata = {
   },
 };
 
+// Mover themeColor para o export viewport (recomendação Next.js)
+export const viewport = {
+  themeColor: "#90BFFF",
+};
+
 import "./globals.css";
 import Header from "@/components/Header";
 
@@ -27,7 +35,6 @@ export default function RootLayout({ children }) {
       <head>
         {/* PWA */}
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#90BFFF" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
