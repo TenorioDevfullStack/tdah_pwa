@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { load, save } from "@/lib/storage";
 
 const KEYS = [
@@ -13,6 +13,7 @@ const KEYS = [
 
 export default function Settings() {
   const fileRef = useRef(null);
+  const [density, setDensity] = useState(load("ui_density", "normal"));
 
   function exportData() {
     const data = {};
@@ -50,6 +51,14 @@ export default function Settings() {
     reader.readAsText(file);
   }
 
+  // Aplica densidade quando alterar
+  useEffect(() => {
+    save("ui_density", density);
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("data-density", density);
+    }
+  }, [density]);
+
   return (
     <div className="card">
       <h3>Configurações</h3>
@@ -67,6 +76,22 @@ export default function Settings() {
           onChange={importData}
           style={{ display: "none" }}
         />
+      </div>
+      <hr />
+      <div className="row">
+        <label className="small">
+          Densidade de layout
+          <select
+            className="select"
+            value={density}
+            onChange={(e) => setDensity(e.target.value)}
+            style={{ marginLeft: 8 }}
+          >
+            <option value="normal">Normal</option>
+            <option value="compact">Compacto</option>
+          </select>
+        </label>
+        <span className="small">Ajusta paddings e alturas para caber mais conteúdo.</span>
       </div>
       <div className="small" style={{ marginTop: 8 }}>
         Inclui: tarefas, tópicos e histórico de estudos, finanças, notas e

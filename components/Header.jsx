@@ -29,6 +29,12 @@ function useTheme() {
 
 export default function Header() {
   const { theme, toggle } = useTheme();
+  // Inicializa densidade do layout (normal/compact) ao montar
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const saved = localStorage.getItem("ui_density") || "normal";
+    document.documentElement.setAttribute("data-density", saved);
+  }, []);
 
   return (
     <header className="header">

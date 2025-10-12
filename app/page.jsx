@@ -76,13 +76,13 @@ export default function Page() {
     <div>
       <Tabs
         tabs={{
-          tarefas: "Tarefas",
-          foco: "Foco",
-          estudos: "Estudos",
-          financas: "Finanças",
-          notas: "Notas",
-          habitos: "Hábitos",
-          config: "Configurações",
+          tarefas: { label: "Tarefas", icon: "✅" },
+          foco: { label: "Foco", icon: "🎯" },
+          estudos: { label: "Estudos", icon: "📚" },
+          financas: { label: "Finanças", icon: "💰" },
+          notas: { label: "Notas", icon: "📝" },
+          habitos: { label: "Hábitos", icon: "📅" },
+          config: { label: "Configurações", icon: "⚙️" },
         }}
         onChange={setActive}
       />

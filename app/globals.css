@@ -139,6 +139,9 @@ a {
   cursor: pointer;
   user-select: none;
   transition: background 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   min-height: 38px;
 }
 .tab.active {
@@ -152,6 +155,7 @@ a {
   outline: none;
   box-shadow: var(--focus);
 }
+.tab-ic { opacity: 0.9; }
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -381,3 +385,16 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* Density: Compact mode */
+[data-density="compact"] .container { padding: 12px; }
+[data-density="compact"] .tabs { margin: 12px 0; }
+[data-density="compact"] .tab { padding: 8px 10px; min-height: 34px; }
+[data-density="compact"] .card { padding: 12px; }
+[data-density="compact"] .grid { gap: 12px; }
+[data-density="compact"] .item { padding: 8px; }
+[data-density="compact"] .input,
+[data-density="compact"] .select,
+[data-density="compact"] .button,
+[data-density="compact"] textarea { padding: 8px 10px; min-height: 34px; }
+[data-density="compact"] .theme-toggle { padding: 4px 8px; }

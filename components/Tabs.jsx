@@ -37,19 +37,26 @@ export default function Tabs({ tabs, onChange }){
       onKeyDown={onKeyDown}
       ref={listRef}
     >
-      {keys.map((k) => (
-        <div
-          key={k}
-          role="tab"
-          aria-selected={k===active}
-          tabIndex={k===active?0:-1}
-          data-tab={k}
-          className={"tab" + (k===active?' active':'')}
-          onClick={() => select(k)}
-        >
-          {tabs[k]}
-        </div>
-      ))}
+      {keys.map((k) => {
+        const value = tabs[k]
+        const label = typeof value === 'string' ? value : value?.label
+        const icon = typeof value === 'object' && value?.icon ? value.icon : null
+        return (
+          <div
+            key={k}
+            role="tab"
+            aria-selected={k===active}
+            tabIndex={k===active?0:-1}
+            data-tab={k}
+            className={"tab" + (k===active?' active':'')}
+            onClick={() => select(k)}
+            title={label}
+          >
+            {icon ? <span aria-hidden className="tab-ic">{icon}</span> : null}
+            <span>{label}</span>
+          </div>
+        )
+      })}
     </div>
   )
 }
