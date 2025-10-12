@@ -10,6 +10,7 @@ import Settings from "@/components/Settings";
 import Habits from "@/components/Habits";
 import Insights from "@/components/Insights";
 import CommandPalette from "@/components/CommandPalette";
+import { TaskIcon, FocusIcon, StudyIcon, MoneyIcon, NoteIcon, HabitIcon, InsightsIcon, SettingsIcon } from "@/components/Icons";
 
 export default function Page() {
   const [active, setActive] = useState("tarefas");
@@ -104,14 +105,14 @@ export default function Page() {
     <div>
       <Tabs
         tabs={{
-          tarefas: { label: "Tarefas", icon: "✅" },
-          foco: { label: "Foco", icon: "🎯" },
-          estudos: { label: "Estudos", icon: "📚" },
-          financas: { label: "Finanças", icon: "💰" },
-          notas: { label: "Notas", icon: "📝" },
-          habitos: { label: "Hábitos", icon: "📅" },
-          insights: { label: "Insights", icon: "📊" },
-          config: { label: "Configurações", icon: "⚙️" },
+          tarefas: { label: "Tarefas", icon: <TaskIcon/> },
+          foco: { label: "Foco", icon: <FocusIcon/> },
+          estudos: { label: "Estudos", icon: <StudyIcon/> },
+          financas: { label: "Finanças", icon: <MoneyIcon/> },
+          notas: { label: "Notas", icon: <NoteIcon/> },
+          habitos: { label: "Hábitos", icon: <HabitIcon/> },
+          insights: { label: "Insights", icon: <InsightsIcon/> },
+          config: { label: "Configurações", icon: <SettingsIcon/> },
         }}
         onChange={setActive}
       />

@@ -155,7 +155,9 @@ a {
   outline: none;
   box-shadow: var(--focus);
 }
-.tab-ic { opacity: 0.9; }
+.tab-ic { opacity: 0.9; width: 16px; height: 16px; display: inline-flex; align-items: center; justify-content: center; }
+.tab-ic > svg { width: 16px; height: 16px; }
+.tab.active .tab-ic { opacity: 1; }
 .grid {
   display: grid;
   grid-template-columns: 1fr;
