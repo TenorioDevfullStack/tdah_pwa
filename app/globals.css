@@ -12,6 +12,7 @@
   --radius-lg: 14px;
   --shadow: 0 8px 20px rgba(0,0,0,0.25);
   --focus: 0 0 0 3px rgba(79, 70, 229, 0.35);
+  --header-h: 64px;
 }
 
 [data-theme="light"] {
@@ -65,6 +66,13 @@ a {
   margin: 0 auto;
   padding: 16px;
 }
+.brand-sub {}
+@media (max-width: 640px){
+  .container { padding: 12px; }
+}
+@media (min-width: 1280px){
+  .container { max-width: 1200px; }
+}
 .header {
   display: flex;
   align-items: center;
@@ -77,6 +85,7 @@ a {
   background: rgba(11, 15, 25, 0.7);
   backdrop-filter: blur(6px);
   z-index: 10;
+  min-height: var(--header-h);
 }
 [data-theme="light"] .header {
   background: rgba(255, 255, 255, 0.8);
@@ -103,6 +112,25 @@ a {
   gap: 8px;
   margin: 16px 0;
 }
+/* Mobile: abas roláveis e coladas abaixo do header */
+@media (max-width: 640px){
+  .tabs {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 9;
+    background: rgba(11, 15, 25, 0.7);
+    backdrop-filter: blur(6px);
+    margin: 0 -12px 12px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: 0 0 auto; scroll-snap-align: start; }
+}
 .tab {
   padding: 10px 14px;
   border: 1px solid var(--border);
@@ -111,6 +139,7 @@ a {
   cursor: pointer;
   user-select: none;
   transition: background 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  min-height: 38px;
 }
 .tab.active {
   border-color: rgba(79, 70, 229, 0.5);
@@ -141,6 +170,11 @@ a {
   transition: border-color 160ms ease, box-shadow 160ms ease,
     background 160ms ease;
 }
+[data-theme="light"] .card { }
+@media (max-width: 640px){
+  .grid { gap: 12px; }
+  .card { padding: 12px; }
+}
 [data-theme="light"] .card {
   background: #fff;
 }
@@ -160,6 +194,7 @@ textarea {
   outline: none;
   transition: border-color 120ms ease, box-shadow 120ms ease,
     background 160ms ease, transform 60ms ease;
+  min-height: 38px;
 }
 [data-theme="light"] .input,
 [data-theme="light"] .select,
@@ -249,6 +284,9 @@ textarea:focus,
   gap: 8px;
   flex-wrap: wrap;
 }
+@media (max-width: 640px){
+  .item { align-items: flex-start; }
+}
 .badge {
   padding: 4px 8px;
   border-radius: 8px;
@@ -293,6 +331,10 @@ footer {
   grid-template-columns: 1.2fr repeat(7, 1fr);
   gap: 8px;
   align-items: center;
+}
+@media (max-width: 420px){
+  .habits-grid { gap: 6px; }
+  .habit-cell { height: 32px; }
 }
 .habits-head {
   font-weight: 700;
