@@ -116,36 +116,37 @@ export default function Page() {
         }}
         onChange={setActive}
       />
+      <div className="tab-scope" data-active-tab={active}>
+        {active === "tarefas" && (
+          <div className="grid">
+            <TaskManager />
+            <QuickNotes />
+          </div>
+        )}
+        {active === "foco" && <Pomodoro />}
+        {active === "estudos" && <StudyPlanner />}
+        {active === "financas" && <Finance />}
+        {active === "notas" && <QuickNotes />}
+        {active === "habitos" && <Habits />}
+        {active === "insights" && <Insights />}
+        {active === "config" && <Settings />}
 
-      {active === "tarefas" && (
-        <div className="grid">
-          <TaskManager />
-          <QuickNotes />
+        <div style={{ marginTop: 16 }}>
+          <button id="install-btn" className="button primary" style={{ display: "none" }}>
+            Instalar no dispositivo
+          </button>
+          <div className="small">
+            Atalhos: Ctrl+1..7 (abas), / (buscar tarefas), Espaço (Pomodoro)
+          </div>
         </div>
-      )}
-      {active === "foco" && <Pomodoro />}
-      {active === "estudos" && <StudyPlanner />}
-      {active === "financas" && <Finance />}
-      {active === "notas" && <QuickNotes />}
-      {active === "habitos" && <Habits />}
-      {active === "insights" && <Insights />}
-      {active === "config" && <Settings />}
 
-      <div style={{ marginTop: 16 }}>
-        <button id="install-btn" className="button primary" style={{ display: "none" }}>
-          Instalar no dispositivo
-        </button>
-        <div className="small">
-          Atalhos: Ctrl+1..7 (abas), / (buscar tarefas), Espaço (Pomodoro)
+        <div className="notice small" style={{ marginTop: 12 }}>
+          ⚠️ Notificações agendadas funcionam com o app aberto. Para push em
+          segundo plano, depois integramos Firebase Cloud Messaging.
         </div>
-      </div>
 
-      <div className="notice small" style={{ marginTop: 12 }}>
-        ⚠️ Notificações agendadas funcionam com o app aberto. Para push em
-        segundo plano, depois integramos Firebase Cloud Messaging.
+        <CommandPalette />
       </div>
-
-      <CommandPalette />
     </div>
   );
 }
