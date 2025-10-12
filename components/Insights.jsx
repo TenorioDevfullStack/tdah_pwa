@@ -74,6 +74,21 @@ export default function Insights() {
     );
   };
 
+  const sparkline = (points = [], max = 1) => {
+    if (!points.length) return null;
+    const w = 160, h = 40;
+    const path = points.map((v,i)=>{
+      const x = (i/(points.length-1))*w;
+      const y = h - (v/(max||1))*h;
+      return `${i?'L':'M'}${x},${y}`;
+    }).join(' ');
+    return (
+      <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+        <path d={path} fill="none" stroke="var(--brand)" strokeWidth="2"/>
+      </svg>
+    );
+  };
+
   return (
     <div className="card">
       <h3>Insights</h3>
@@ -117,6 +132,9 @@ export default function Insights() {
             <span className="badge">Despesas: R$ {data.money.outSum.toFixed(2)}</span>
             <span className="badge" style={{ borderColor: data.money.balance>=0? 'var(--ok)':'var(--danger)' }}>Saldo: R$ {data.money.balance.toFixed(2)}</span>
           </div>
+          <div style={{marginTop:8}}>
+            {sparkline([data.money.inSum, data.money.outSum, Math.max(0,data.money.balance)], Math.max(data.money.inSum, data.money.outSum, Math.abs(data.money.balance)||1))}
+          </div>
         </div>
 
         <div className="card">
@@ -124,6 +142,12 @@ export default function Insights() {
           <div className="row">
             <span className="badge">Checks: {data.habits.habitChecks}/{data.habits.habitTotal}</span>
             <span className="badge">Adesão: {data.habits.habitRate}%</span>
+          </div>
+          <div style={{marginTop:8}}>
+            {sparkline(
+              data.weekDays.map(d => Object.values(load("habits_checks", {})[d]||{}).filter(Boolean).length),
+              Math.max(1, ...data.weekDays.map(d => Object.values(load("habits_checks", {})[d]||{}).length))
+            )}
           </div>
         </div>
       </div>
@@ -133,4 +157,3 @@ export default function Insights() {
     </div>
   );
 }
-
