@@ -8,6 +8,8 @@ import Finance from "@/components/Finance";
 import QuickNotes from "@/components/QuickNotes";
 import Settings from "@/components/Settings";
 import Habits from "@/components/Habits";
+import Insights from "@/components/Insights";
+import CommandPalette from "@/components/CommandPalette";
 
 export default function Page() {
   const [active, setActive] = useState("tarefas");
@@ -32,7 +34,7 @@ export default function Page() {
   // ⌨️ Atalhos globais
   useEffect(() => {
     function onKey(e) {
-      // Ctrl+1..7 -> troca de abas
+      // Ctrl+1..8 -> troca de abas
       if (e.ctrlKey) {
         const map = {
           1: "tarefas",
@@ -42,6 +44,7 @@ export default function Page() {
           5: "notas",
           6: "habitos",
           7: "config",
+          8: "insights",
         };
         if (map[e.key]) {
           setActive(map[e.key]);
@@ -72,6 +75,31 @@ export default function Page() {
     return () => window.removeEventListener("keydown", onKey);
   }, [active]);
 
+  // Navegação por evento (usado pela Command Palette)
+  useEffect(() => {
+    const onNav = (e) => {
+      const key = e.detail;
+      if (key) setActive(key);
+    };
+    window.addEventListener("navigate-tab", onNav);
+    return () => window.removeEventListener("navigate-tab", onNav);
+  }, []);
+
+  // Shortcuts do PWA via querystring
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get("tab");
+    const shortcut = params.get("shortcut");
+    if (tab) setActive(tab);
+    if (shortcut === "new-task") {
+      window.dispatchEvent(new Event("focus-task-input"));
+    }
+    if (shortcut === "foco") {
+      window.dispatchEvent(new Event("pomodoro-toggle"));
+    }
+  }, []);
+
   return (
     <div>
       <Tabs
@@ -82,6 +110,7 @@ export default function Page() {
           financas: { label: "Finanças", icon: "💰" },
           notas: { label: "Notas", icon: "📝" },
           habitos: { label: "Hábitos", icon: "📅" },
+          insights: { label: "Insights", icon: "📊" },
           config: { label: "Configurações", icon: "⚙️" },
         }}
         onChange={setActive}
@@ -98,6 +127,7 @@ export default function Page() {
       {active === "financas" && <Finance />}
       {active === "notas" && <QuickNotes />}
       {active === "habitos" && <Habits />}
+      {active === "insights" && <Insights />}
       {active === "config" && <Settings />}
 
       <div style={{ marginTop: 16 }}>
@@ -113,6 +143,8 @@ export default function Page() {
         ⚠️ Notificações agendadas funcionam com o app aberto. Para push em
         segundo plano, depois integramos Firebase Cloud Messaging.
       </div>
+
+      <CommandPalette />
     </div>
   );
 }

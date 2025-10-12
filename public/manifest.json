@@ -22,4 +22,25 @@
       "purpose": "maskable"
     }
   ]
+  ,
+  "shortcuts": [
+    {
+      "name": "Nova tarefa",
+      "short_name": "Tarefa",
+      "url": "/?shortcut=new-task&tab=tarefas",
+      "icons": [{"src":"/icons/icon-192.png","sizes":"192x192"}]
+    },
+    {
+      "name": "Foco (Pomodoro)",
+      "short_name": "Foco",
+      "url": "/?shortcut=foco&tab=foco",
+      "icons": [{"src":"/icons/icon-192.png","sizes":"192x192"}]
+    },
+    {
+      "name": "Notas rápidas",
+      "short_name": "Notas",
+      "url": "/?shortcut=notas&tab=notas",
+      "icons": [{"src":"/icons/icon-192.png","sizes":"192x192"}]
+    }
+  ]
 }

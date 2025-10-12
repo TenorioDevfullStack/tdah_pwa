@@ -386,6 +386,42 @@ footer {
   * { transition: none !important; animation: none !important; }
 }
 
+/* Toaster */
+.toaster {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 50;
+  display: grid;
+  gap: 8px;
+}
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0e1427;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+}
+[data-theme="light"] .toast { background: #eef2ff; }
+.toast.sw-update { position: fixed; left: 50%; transform: translateX(-50%); bottom: 16px; }
+.toast-msg { flex: 1; }
+
+/* Command Palette */
+.cp-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.35);
+  display: grid; place-items: start center; padding-top: 10vh; z-index: 60;
+}
+.cp-modal {
+  width: min(680px, 92vw);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+
 /* Density: Compact mode */
 [data-density="compact"] .container { padding: 12px; }
 [data-density="compact"] .tabs { margin: 12px 0; }

@@ -28,6 +28,8 @@ export const viewport = {
 
 import "./globals.css";
 import Header from "@/components/Header";
+import Toaster from "@/components/Toaster";
+import SWUpdateBanner from "@/components/SWUpdateBanner";
 
 export default function RootLayout({ children }) {
   return (
@@ -52,6 +54,8 @@ export default function RootLayout({ children }) {
       <body>
         <Header />
         <div className="container">{children}</div>
+        <Toaster />
+        <SWUpdateBanner />
         <footer>
           Rotina TDAH — organize tarefas, estudos, tempo e finanças. <br />
           Funciona offline e sincroniza localmente (sem nuvem).

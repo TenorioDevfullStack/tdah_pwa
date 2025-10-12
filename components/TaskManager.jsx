@@ -25,8 +25,17 @@ export default function TaskManager() {
     const focusSearch = () => {
       searchRef.current?.focus();
     };
+    const focusInput = () => {
+      const formEl = document.querySelector('form');
+      const inp = formEl?.querySelector('input[name="title"]');
+      inp?.focus();
+    };
     window.addEventListener("focus-task-search", focusSearch);
-    return () => window.removeEventListener("focus-task-search", focusSearch);
+    window.addEventListener("focus-task-input", focusInput);
+    return () => {
+      window.removeEventListener("focus-task-search", focusSearch);
+      window.removeEventListener("focus-task-input", focusInput);
+    };
   }, []);
 
   function addTask(e) {
@@ -77,7 +86,20 @@ export default function TaskManager() {
   }
 
   function del(id) {
-    setTasks((prev) => prev.filter((t) => t.id !== id));
+    setTasks((prev) => {
+      const removed = prev.find((t) => t.id === id);
+      const next = prev.filter((t) => t.id !== id);
+      window.dispatchEvent(
+        new CustomEvent("toast", {
+          detail: {
+            text: `Tarefa removida: ${removed?.title || ''}`,
+            actionLabel: "Desfazer",
+            onAction: () => setTasks((curr) => [removed, ...curr]),
+          },
+        })
+      );
+      return next;
+    });
   }
 
   const view = useMemo(() => {
@@ -87,6 +109,9 @@ export default function TaskManager() {
     );
     if (filter === "Hoje") {
       list = list.filter((t) => t.due === now);
+    }
+    if (filter === "Atrasadas") {
+      list = list.filter((t) => t.due && !t.done && t.due < now);
     }
     if (filter === "Pendentes") {
       list = list.filter((t) => !t.done);
@@ -167,7 +192,7 @@ export default function TaskManager() {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
-          {["Todas", "Pendentes", "Concluídas", "Hoje"].map((s) => (
+          {["Todas", "Pendentes", "Concluídas", "Hoje", "Atrasadas"].map((s) => (
             <option key={s}>{s}</option>
           ))}
         </select>
@@ -186,7 +211,9 @@ export default function TaskManager() {
 
       <div className="list">
         {view.map((t) => (
-          <div className="item" key={t.id}>
+          <div className="item" key={t.id} style={{
+            borderColor: t.due && !t.done && t.due < new Date().toISOString().slice(0,10) ? 'var(--danger)' : undefined
+          }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <input
                 type="checkbox"
@@ -202,6 +229,9 @@ export default function TaskManager() {
                   <span className="badge">
                     Rec: {t.recurrence || "Nenhuma"}
                   </span>
+                  {t.due && !t.done && t.due < new Date().toISOString().slice(0,10) && (
+                    <> • <span className="badge" style={{ borderColor: 'var(--danger)' }}>Atrasada</span></>
+                  )}
                 </div>
               </div>
             </div>

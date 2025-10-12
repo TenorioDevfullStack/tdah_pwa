@@ -29,7 +29,18 @@ export default function Finance(){
     setItems(prev => [entry, ...prev])
     e.currentTarget.reset()
   }
-  function del(id){ setItems(prev => prev.filter(i => i.id!==id)) }
+  function del(id){
+    setItems(prev => {
+      const removed = prev.find(i=>i.id===id)
+      const next = prev.filter(i => i.id!==id)
+      window.dispatchEvent(new CustomEvent('toast', { detail: {
+        text: `Lançamento removido: ${removed?.desc||''}`,
+        actionLabel: 'Desfazer',
+        onAction: () => setItems(curr => [removed, ...curr])
+      }}))
+      return next
+    })
+  }
 
   const summary = useMemo(()=>{
     const inSum = items.filter(i=>i.type==='Receita').reduce((a,b)=>a+b.amount,0)
