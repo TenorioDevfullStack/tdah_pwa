@@ -14,6 +14,7 @@ const KEYS = [
 export default function Settings() {
   const fileRef = useRef(null);
   const [density, setDensity] = useState(load("ui_density", "normal"));
+  const [colorTheme, setColorTheme] = useState(load("ui_color_theme", "default"));
 
   function exportData() {
     const data = {};
@@ -59,6 +60,13 @@ export default function Settings() {
     }
   }, [density]);
 
+  useEffect(() => {
+    save("ui_color_theme", colorTheme);
+    if (typeof document !== "undefined") {
+      document.documentElement.setAttribute("data-color-theme", colorTheme);
+    }
+  }, [colorTheme]);
+
   return (
     <div className="card">
       <h3>Configurações</h3>
@@ -92,6 +100,24 @@ export default function Settings() {
           </select>
         </label>
         <span className="small">Ajusta paddings e alturas para caber mais conteúdo.</span>
+      </div>
+
+      <div className="row" style={{ marginTop: 8 }}>
+        <label className="small">
+          Tema de cor
+          <select
+            className="select"
+            value={colorTheme}
+            onChange={(e) => setColorTheme(e.target.value)}
+            style={{ marginLeft: 8 }}
+          >
+            <option value="default">Padrão</option>
+            <option value="ocean">Ocean</option>
+            <option value="sunset">Sunset</option>
+            <option value="forest">Forest</option>
+          </select>
+        </label>
+        <span className="small">Muda as cores de ícones, foco e destaques por seção.</span>
       </div>
       <div className="small" style={{ marginTop: 8 }}>
         Inclui: tarefas, tópicos e histórico de estudos, finanças, notas e

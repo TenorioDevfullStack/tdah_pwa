@@ -13,6 +13,16 @@
   --shadow: 0 8px 20px rgba(0,0,0,0.25);
   --focus: 0 0 0 3px rgba(79, 70, 229, 0.35);
   --header-h: 64px;
+
+  /* Section accent colors (RGB triplets) */
+  --c-tarefas: 59 130 246;     /* blue-500 */
+  --c-foco: 239 68 68;         /* red-500 */
+  --c-estudos: 14 165 233;     /* sky-500 */
+  --c-financas: 16 185 129;    /* emerald-500 */
+  --c-notas: 245 158 11;       /* amber-500 */
+  --c-habitos: 139 92 246;     /* violet-500 */
+  --c-insights: 6 182 212;     /* cyan-500 */
+  --c-config: 100 116 139;     /* slate-500 */
 }
 
 [data-theme="light"] {
@@ -160,134 +170,166 @@ a {
 .tab.active .tab-ic { opacity: 1; }
 
 /* Tab icon colors */
-.tab[data-tab="tarefas"] .tab-ic { color: #3b82f6; }
-.tab[data-tab="foco"] .tab-ic { color: #ef4444; }
-.tab[data-tab="estudos"] .tab-ic { color: #0ea5e9; }
-.tab[data-tab="financas"] .tab-ic { color: #10b981; }
-.tab[data-tab="notas"] .tab-ic { color: #f59e0b; }
-.tab[data-tab="habitos"] .tab-ic { color: #8b5cf6; }
-.tab[data-tab="insights"] .tab-ic { color: #06b6d4; }
-.tab[data-tab="config"] .tab-ic { color: #64748b; }
+.tab[data-tab="tarefas"] .tab-ic { color: rgb(var(--c-tarefas)); }
+.tab[data-tab="foco"] .tab-ic { color: rgb(var(--c-foco)); }
+.tab[data-tab="estudos"] .tab-ic { color: rgb(var(--c-estudos)); }
+.tab[data-tab="financas"] .tab-ic { color: rgb(var(--c-financas)); }
+.tab[data-tab="notas"] .tab-ic { color: rgb(var(--c-notas)); }
+.tab[data-tab="habitos"] .tab-ic { color: rgb(var(--c-habitos)); }
+.tab[data-tab="insights"] .tab-ic { color: rgb(var(--c-insights)); }
+.tab[data-tab="config"] .tab-ic { color: rgb(var(--c-config)); }
 
 /* Tab color variants for hover/focus/active */
-.tab[data-tab="tarefas"]:hover { border-color: rgba(59,130,246,0.45); }
-.tab[data-tab="tarefas"].active, .tab[data-tab="tarefas"]:focus-visible { border-color: rgba(59,130,246,0.6); box-shadow: 0 0 0 2px rgba(59,130,246,0.15) inset, 0 0 0 3px rgba(59,130,246,0.35); }
+.tab[data-tab="tarefas"]:hover { border-color: rgba(var(--c-tarefas),0.45); }
+.tab[data-tab="tarefas"].active, .tab[data-tab="tarefas"]:focus-visible { border-color: rgba(var(--c-tarefas),0.6); box-shadow: 0 0 0 2px rgba(var(--c-tarefas),0.15) inset, 0 0 0 3px rgba(var(--c-tarefas),0.35); }
 
-.tab[data-tab="foco"]:hover { border-color: rgba(239,68,68,0.45); }
-.tab[data-tab="foco"].active, .tab[data-tab="foco"]:focus-visible { border-color: rgba(239,68,68,0.6); box-shadow: 0 0 0 2px rgba(239,68,68,0.15) inset, 0 0 0 3px rgba(239,68,68,0.35); }
+.tab[data-tab="foco"]:hover { border-color: rgba(var(--c-foco),0.45); }
+.tab[data-tab="foco"].active, .tab[data-tab="foco"]:focus-visible { border-color: rgba(var(--c-foco),0.6); box-shadow: 0 0 0 2px rgba(var(--c-foco),0.15) inset, 0 0 0 3px rgba(var(--c-foco),0.35); }
 
-.tab[data-tab="estudos"]:hover { border-color: rgba(14,165,233,0.45); }
-.tab[data-tab="estudos"].active, .tab[data-tab="estudos"]:focus-visible { border-color: rgba(14,165,233,0.6); box-shadow: 0 0 0 2px rgba(14,165,233,0.15) inset, 0 0 0 3px rgba(14,165,233,0.35); }
+.tab[data-tab="estudos"]:hover { border-color: rgba(var(--c-estudos),0.45); }
+.tab[data-tab="estudos"].active, .tab[data-tab="estudos"]:focus-visible { border-color: rgba(var(--c-estudos),0.6); box-shadow: 0 0 0 2px rgba(var(--c-estudos),0.15) inset, 0 0 0 3px rgba(var(--c-estudos),0.35); }
 
-.tab[data-tab="financas"]:hover { border-color: rgba(16,185,129,0.45); }
-.tab[data-tab="financas"].active, .tab[data-tab="financas"]:focus-visible { border-color: rgba(16,185,129,0.6); box-shadow: 0 0 0 2px rgba(16,185,129,0.15) inset, 0 0 0 3px rgba(16,185,129,0.35); }
+.tab[data-tab="financas"]:hover { border-color: rgba(var(--c-financas),0.45); }
+.tab[data-tab="financas"].active, .tab[data-tab="financas"]:focus-visible { border-color: rgba(var(--c-financas),0.6); box-shadow: 0 0 0 2px rgba(var(--c-financas),0.15) inset, 0 0 0 3px rgba(var(--c-financas),0.35); }
 
-.tab[data-tab="notas"]:hover { border-color: rgba(245,158,11,0.45); }
-.tab[data-tab="notas"].active, .tab[data-tab="notas"]:focus-visible { border-color: rgba(245,158,11,0.6); box-shadow: 0 0 0 2px rgba(245,158,11,0.15) inset, 0 0 0 3px rgba(245,158,11,0.35); }
+.tab[data-tab="notas"]:hover { border-color: rgba(var(--c-notas),0.45); }
+.tab[data-tab="notas"].active, .tab[data-tab="notas"]:focus-visible { border-color: rgba(var(--c-notas),0.6); box-shadow: 0 0 0 2px rgba(var(--c-notas),0.15) inset, 0 0 0 3px rgba(var(--c-notas),0.35); }
 
-.tab[data-tab="habitos"]:hover { border-color: rgba(139,92,246,0.45); }
-.tab[data-tab="habitos"].active, .tab[data-tab="habitos"]:focus-visible { border-color: rgba(139,92,246,0.6); box-shadow: 0 0 0 2px rgba(139,92,246,0.15) inset, 0 0 0 3px rgba(139,92,246,0.35); }
+.tab[data-tab="habitos"]:hover { border-color: rgba(var(--c-habitos),0.45); }
+.tab[data-tab="habitos"].active, .tab[data-tab="habitos"]:focus-visible { border-color: rgba(var(--c-habitos),0.6); box-shadow: 0 0 0 2px rgba(var(--c-habitos),0.15) inset, 0 0 0 3px rgba(var(--c-habitos),0.35); }
 
-.tab[data-tab="insights"]:hover { border-color: rgba(6,182,212,0.45); }
-.tab[data-tab="insights"].active, .tab[data-tab="insights"]:focus-visible { border-color: rgba(6,182,212,0.6); box-shadow: 0 0 0 2px rgba(6,182,212,0.15) inset, 0 0 0 3px rgba(6,182,212,0.35); }
+.tab[data-tab="insights"]:hover { border-color: rgba(var(--c-insights),0.45); }
+.tab[data-tab="insights"].active, .tab[data-tab="insights"]:focus-visible { border-color: rgba(var(--c-insights),0.6); box-shadow: 0 0 0 2px rgba(var(--c-insights),0.15) inset, 0 0 0 3px rgba(var(--c-insights),0.35); }
 
-.tab[data-tab="config"]:hover { border-color: rgba(100,116,139,0.45); }
-.tab[data-tab="config"].active, .tab[data-tab="config"]:focus-visible { border-color: rgba(100,116,139,0.6); box-shadow: 0 0 0 2px rgba(100,116,139,0.15) inset, 0 0 0 3px rgba(100,116,139,0.35); }
+.tab[data-tab="config"]:hover { border-color: rgba(var(--c-config),0.45); }
+.tab[data-tab="config"].active, .tab[data-tab="config"]:focus-visible { border-color: rgba(var(--c-config),0.6); box-shadow: 0 0 0 2px rgba(var(--c-config),0.15) inset, 0 0 0 3px rgba(var(--c-config),0.35); }
 
 /* Card title accents by active tab */
-.tab-scope[data-active-tab="tarefas"] .card h3 { color: #3b82f6; }
-.tab-scope[data-active-tab="foco"] .card h3 { color: #ef4444; }
-.tab-scope[data-active-tab="estudos"] .card h3 { color: #0ea5e9; }
-.tab-scope[data-active-tab="financas"] .card h3 { color: #10b981; }
-.tab-scope[data-active-tab="notas"] .card h3 { color: #f59e0b; }
-.tab-scope[data-active-tab="habitos"] .card h3 { color: #8b5cf6; }
-.tab-scope[data-active-tab="insights"] .card h3 { color: #06b6d4; }
-.tab-scope[data-active-tab="config"] .card h3 { color: #64748b; }
+.tab-scope[data-active-tab="tarefas"] .card h3 { color: rgb(var(--c-tarefas)); }
+.tab-scope[data-active-tab="foco"] .card h3 { color: rgb(var(--c-foco)); }
+.tab-scope[data-active-tab="estudos"] .card h3 { color: rgb(var(--c-estudos)); }
+.tab-scope[data-active-tab="financas"] .card h3 { color: rgb(var(--c-financas)); }
+.tab-scope[data-active-tab="notas"] .card h3 { color: rgb(var(--c-notas)); }
+.tab-scope[data-active-tab="habitos"] .card h3 { color: rgb(var(--c-habitos)); }
+.tab-scope[data-active-tab="insights"] .card h3 { color: rgb(var(--c-insights)); }
+.tab-scope[data-active-tab="config"] .card h3 { color: rgb(var(--c-config)); }
 
 /* Also color h4 and notice borders by active tab */
-.tab-scope[data-active-tab="tarefas"] .card h4 { color: #3b82f6; }
-.tab-scope[data-active-tab="foco"] .card h4 { color: #ef4444; }
-.tab-scope[data-active-tab="estudos"] .card h4 { color: #0ea5e9; }
-.tab-scope[data-active-tab="financas"] .card h4 { color: #10b981; }
-.tab-scope[data-active-tab="notas"] .card h4 { color: #f59e0b; }
-.tab-scope[data-active-tab="habitos"] .card h4 { color: #8b5cf6; }
-.tab-scope[data-active-tab="insights"] .card h4 { color: #06b6d4; }
-.tab-scope[data-active-tab="config"] .card h4 { color: #64748b; }
+.tab-scope[data-active-tab="tarefas"] .card h4 { color: rgb(var(--c-tarefas)); }
+.tab-scope[data-active-tab="foco"] .card h4 { color: rgb(var(--c-foco)); }
+.tab-scope[data-active-tab="estudos"] .card h4 { color: rgb(var(--c-estudos)); }
+.tab-scope[data-active-tab="financas"] .card h4 { color: rgb(var(--c-financas)); }
+.tab-scope[data-active-tab="notas"] .card h4 { color: rgb(var(--c-notas)); }
+.tab-scope[data-active-tab="habitos"] .card h4 { color: rgb(var(--c-habitos)); }
+.tab-scope[data-active-tab="insights"] .card h4 { color: rgb(var(--c-insights)); }
+.tab-scope[data-active-tab="config"] .card h4 { color: rgb(var(--c-config)); }
 
-.tab-scope[data-active-tab="tarefas"] .notice { border-color: rgba(59,130,246,0.5); }
-.tab-scope[data-active-tab="foco"] .notice { border-color: rgba(239,68,68,0.5); }
-.tab-scope[data-active-tab="estudos"] .notice { border-color: rgba(14,165,233,0.5); }
-.tab-scope[data-active-tab="financas"] .notice { border-color: rgba(16,185,129,0.5); }
-.tab-scope[data-active-tab="notas"] .notice { border-color: rgba(245,158,11,0.5); }
-.tab-scope[data-active-tab="habitos"] .notice { border-color: rgba(139,92,246,0.5); }
-.tab-scope[data-active-tab="insights"] .notice { border-color: rgba(6,182,212,0.5); }
-.tab-scope[data-active-tab="config"] .notice { border-color: rgba(100,116,139,0.5); }
+.tab-scope[data-active-tab="tarefas"] .notice { border-color: rgba(var(--c-tarefas),0.5); }
+.tab-scope[data-active-tab="foco"] .notice { border-color: rgba(var(--c-foco),0.5); }
+.tab-scope[data-active-tab="estudos"] .notice { border-color: rgba(var(--c-estudos),0.5); }
+.tab-scope[data-active-tab="financas"] .notice { border-color: rgba(var(--c-financas),0.5); }
+.tab-scope[data-active-tab="notas"] .notice { border-color: rgba(var(--c-notas),0.5); }
+.tab-scope[data-active-tab="habitos"] .notice { border-color: rgba(var(--c-habitos),0.5); }
+.tab-scope[data-active-tab="insights"] .notice { border-color: rgba(var(--c-insights),0.5); }
+.tab-scope[data-active-tab="config"] .notice { border-color: rgba(var(--c-config),0.5); }
 
 /* Button.primary and badge accents by active tab */
-.tab-scope[data-active-tab="tarefas"] .button.primary { border-color: rgba(59,130,246,0.6); box-shadow: 0 0 0 1px rgba(59,130,246,0.25) inset; }
-.tab-scope[data-active-tab="tarefas"] .button.primary:hover { border-color: rgba(59,130,246,0.85); }
-.tab-scope[data-active-tab="tarefas"] .badge { border-color: rgba(59,130,246,0.5); }
+.tab-scope[data-active-tab="tarefas"] .button.primary { border-color: rgba(var(--c-tarefas),0.6); box-shadow: 0 0 0 1px rgba(var(--c-tarefas),0.25) inset; }
+.tab-scope[data-active-tab="tarefas"] .button.primary:hover { border-color: rgba(var(--c-tarefas),0.85); }
+.tab-scope[data-active-tab="tarefas"] .badge { border-color: rgba(var(--c-tarefas),0.5); }
 
-.tab-scope[data-active-tab="foco"] .button.primary { border-color: rgba(239,68,68,0.6); box-shadow: 0 0 0 1px rgba(239,68,68,0.25) inset; }
-.tab-scope[data-active-tab="foco"] .button.primary:hover { border-color: rgba(239,68,68,0.85); }
-.tab-scope[data-active-tab="foco"] .badge { border-color: rgba(239,68,68,0.5); }
+.tab-scope[data-active-tab="foco"] .button.primary { border-color: rgba(var(--c-foco),0.6); box-shadow: 0 0 0 1px rgba(var(--c-foco),0.25) inset; }
+.tab-scope[data-active-tab="foco"] .button.primary:hover { border-color: rgba(var(--c-foco),0.85); }
+.tab-scope[data-active-tab="foco"] .badge { border-color: rgba(var(--c-foco),0.5); }
 
-.tab-scope[data-active-tab="estudos"] .button.primary { border-color: rgba(14,165,233,0.6); box-shadow: 0 0 0 1px rgba(14,165,233,0.25) inset; }
-.tab-scope[data-active-tab="estudos"] .button.primary:hover { border-color: rgba(14,165,233,0.85); }
-.tab-scope[data-active-tab="estudos"] .badge { border-color: rgba(14,165,233,0.5); }
+.tab-scope[data-active-tab="estudos"] .button.primary { border-color: rgba(var(--c-estudos),0.6); box-shadow: 0 0 0 1px rgba(var(--c-estudos),0.25) inset; }
+.tab-scope[data-active-tab="estudos"] .button.primary:hover { border-color: rgba(var(--c-estudos),0.85); }
+.tab-scope[data-active-tab="estudos"] .badge { border-color: rgba(var(--c-estudos),0.5); }
 
-.tab-scope[data-active-tab="financas"] .button.primary { border-color: rgba(16,185,129,0.6); box-shadow: 0 0 0 1px rgba(16,185,129,0.25) inset; }
-.tab-scope[data-active-tab="financas"] .button.primary:hover { border-color: rgba(16,185,129,0.85); }
-.tab-scope[data-active-tab="financas"] .badge { border-color: rgba(16,185,129,0.5); }
+.tab-scope[data-active-tab="financas"] .button.primary { border-color: rgba(var(--c-financas),0.6); box-shadow: 0 0 0 1px rgba(var(--c-financas),0.25) inset; }
+.tab-scope[data-active-tab="financas"] .button.primary:hover { border-color: rgba(var(--c-financas),0.85); }
+.tab-scope[data-active-tab="financas"] .badge { border-color: rgba(var(--c-financas),0.5); }
 
-.tab-scope[data-active-tab="notas"] .button.primary { border-color: rgba(245,158,11,0.6); box-shadow: 0 0 0 1px rgba(245,158,11,0.25) inset; }
-.tab-scope[data-active-tab="notas"] .button.primary:hover { border-color: rgba(245,158,11,0.85); }
-.tab-scope[data-active-tab="notas"] .badge { border-color: rgba(245,158,11,0.5); }
+.tab-scope[data-active-tab="notas"] .button.primary { border-color: rgba(var(--c-notas),0.6); box-shadow: 0 0 0 1px rgba(var(--c-notas),0.25) inset; }
+.tab-scope[data-active-tab="notas"] .button.primary:hover { border-color: rgba(var(--c-notas),0.85); }
+.tab-scope[data-active-tab="notas"] .badge { border-color: rgba(var(--c-notas),0.5); }
 
-.tab-scope[data-active-tab="habitos"] .button.primary { border-color: rgba(139,92,246,0.6); box-shadow: 0 0 0 1px rgba(139,92,246,0.25) inset; }
-.tab-scope[data-active-tab="habitos"] .button.primary:hover { border-color: rgba(139,92,246,0.85); }
-.tab-scope[data-active-tab="habitos"] .badge { border-color: rgba(139,92,246,0.5); }
+.tab-scope[data-active-tab="habitos"] .button.primary { border-color: rgba(var(--c-habitos),0.6); box-shadow: 0 0 0 1px rgba(var(--c-habitos),0.25) inset; }
+.tab-scope[data-active-tab="habitos"] .button.primary:hover { border-color: rgba(var(--c-habitos),0.85); }
+.tab-scope[data-active-tab="habitos"] .badge { border-color: rgba(var(--c-habitos),0.5); }
 
-.tab-scope[data-active-tab="insights"] .button.primary { border-color: rgba(6,182,212,0.6); box-shadow: 0 0 0 1px rgba(6,182,212,0.25) inset; }
-.tab-scope[data-active-tab="insights"] .button.primary:hover { border-color: rgba(6,182,212,0.85); }
-.tab-scope[data-active-tab="insights"] .badge { border-color: rgba(6,182,212,0.5); }
+.tab-scope[data-active-tab="insights"] .button.primary { border-color: rgba(var(--c-insights),0.6); box-shadow: 0 0 0 1px rgba(var(--c-insights),0.25) inset; }
+.tab-scope[data-active-tab="insights"] .button.primary:hover { border-color: rgba(var(--c-insights),0.85); }
+.tab-scope[data-active-tab="insights"] .badge { border-color: rgba(var(--c-insights),0.5); }
 
-.tab-scope[data-active-tab="config"] .button.primary { border-color: rgba(100,116,139,0.6); box-shadow: 0 0 0 1px rgba(100,116,139,0.25) inset; }
-.tab-scope[data-active-tab="config"] .button.primary:hover { border-color: rgba(100,116,139,0.85); }
-.tab-scope[data-active-tab="config"] .badge { border-color: rgba(100,116,139,0.5); }
+.tab-scope[data-active-tab="config"] .button.primary { border-color: rgba(var(--c-config),0.6); box-shadow: 0 0 0 1px rgba(var(--c-config),0.25) inset; }
+.tab-scope[data-active-tab="config"] .button.primary:hover { border-color: rgba(var(--c-config),0.85); }
+.tab-scope[data-active-tab="config"] .badge { border-color: rgba(var(--c-config),0.5); }
 
 /* Inputs/selects/textarea focus accents by active tab */
 .tab-scope[data-active-tab="tarefas"] .input:focus,
 .tab-scope[data-active-tab="tarefas"] .select:focus,
-.tab-scope[data-active-tab="tarefas"] textarea:focus { border-color: rgba(59,130,246,0.7); box-shadow: 0 0 0 3px rgba(59,130,246,0.35); }
+.tab-scope[data-active-tab="tarefas"] textarea:focus { border-color: rgba(var(--c-tarefas),0.7); box-shadow: 0 0 0 3px rgba(var(--c-tarefas),0.35); }
 
 .tab-scope[data-active-tab="foco"] .input:focus,
 .tab-scope[data-active-tab="foco"] .select:focus,
-.tab-scope[data-active-tab="foco"] textarea:focus { border-color: rgba(239,68,68,0.7); box-shadow: 0 0 0 3px rgba(239,68,68,0.35); }
+.tab-scope[data-active-tab="foco"] textarea:focus { border-color: rgba(var(--c-foco),0.7); box-shadow: 0 0 0 3px rgba(var(--c-foco),0.35); }
 
 .tab-scope[data-active-tab="estudos"] .input:focus,
 .tab-scope[data-active-tab="estudos"] .select:focus,
-.tab-scope[data-active-tab="estudos"] textarea:focus { border-color: rgba(14,165,233,0.7); box-shadow: 0 0 0 3px rgba(14,165,233,0.35); }
+.tab-scope[data-active-tab="estudos"] textarea:focus { border-color: rgba(var(--c-estudos),0.7); box-shadow: 0 0 0 3px rgba(var(--c-estudos),0.35); }
 
 .tab-scope[data-active-tab="financas"] .input:focus,
 .tab-scope[data-active-tab="financas"] .select:focus,
-.tab-scope[data-active-tab="financas"] textarea:focus { border-color: rgba(16,185,129,0.7); box-shadow: 0 0 0 3px rgba(16,185,129,0.35); }
+.tab-scope[data-active-tab="financas"] textarea:focus { border-color: rgba(var(--c-financas),0.7); box-shadow: 0 0 0 3px rgba(var(--c-financas),0.35); }
 
 .tab-scope[data-active-tab="notas"] .input:focus,
 .tab-scope[data-active-tab="notas"] .select:focus,
-.tab-scope[data-active-tab="notas"] textarea:focus { border-color: rgba(245,158,11,0.7); box-shadow: 0 0 0 3px rgba(245,158,11,0.35); }
+.tab-scope[data-active-tab="notas"] textarea:focus { border-color: rgba(var(--c-notas),0.7); box-shadow: 0 0 0 3px rgba(var(--c-notas),0.35); }
 
 .tab-scope[data-active-tab="habitos"] .input:focus,
 .tab-scope[data-active-tab="habitos"] .select:focus,
-.tab-scope[data-active-tab="habitos"] textarea:focus { border-color: rgba(139,92,246,0.7); box-shadow: 0 0 0 3px rgba(139,92,246,0.35); }
+.tab-scope[data-active-tab="habitos"] textarea:focus { border-color: rgba(var(--c-habitos),0.7); box-shadow: 0 0 0 3px rgba(var(--c-habitos),0.35); }
 
 .tab-scope[data-active-tab="insights"] .input:focus,
 .tab-scope[data-active-tab="insights"] .select:focus,
-.tab-scope[data-active-tab="insights"] textarea:focus { border-color: rgba(6,182,212,0.7); box-shadow: 0 0 0 3px rgba(6,182,212,0.35); }
+.tab-scope[data-active-tab="insights"] textarea:focus { border-color: rgba(var(--c-insights),0.7); box-shadow: 0 0 0 3px rgba(var(--c-insights),0.35); }
 
 .tab-scope[data-active-tab="config"] .input:focus,
 .tab-scope[data-active-tab="config"] .select:focus,
-.tab-scope[data-active-tab="config"] textarea:focus { border-color: rgba(100,116,139,0.7); box-shadow: 0 0 0 3px rgba(100,116,139,0.35); }
+.tab-scope[data-active-tab="config"] textarea:focus { border-color: rgba(var(--c-config),0.7); box-shadow: 0 0 0 3px rgba(var(--c-config),0.35); }
+
+/* Color theme variants: sets section RGBs */
+[data-color-theme="ocean"] {
+  --c-tarefas: 56 189 248;   /* sky-400 */
+  --c-foco: 59 130 246;      /* blue-500 */
+  --c-estudos: 99 102 241;   /* indigo-500 */
+  --c-financas: 20 184 166;  /* teal-500 */
+  --c-notas: 2 132 199;      /* sky-600 */
+  --c-habitos: 129 140 248;  /* indigo-400 */
+  --c-insights: 34 197 94;   /* green-500 */
+  --c-config: 148 163 184;   /* slate-400 */
+}
+[data-color-theme="sunset"] {
+  --c-tarefas: 249 115 22;   /* orange-500 */
+  --c-foco: 244 63 94;       /* rose-500 */
+  --c-estudos: 236 72 153;   /* pink-500 */
+  --c-financas: 234 179 8;   /* yellow-500 */
+  --c-notas: 245 158 11;     /* amber-500 */
+  --c-habitos: 217 70 239;   /* fuchsia-500 */
+  --c-insights: 59 130 246;  /* blue-500 */
+  --c-config: 100 116 139;   /* slate-500 */
+}
+[data-color-theme="forest"] {
+  --c-tarefas: 34 197 94;    /* green-500 */
+  --c-foco: 22 163 74;       /* green-600 */
+  --c-estudos: 5 150 105;    /* teal-600 */
+  --c-financas: 16 185 129;  /* emerald-500 */
+  --c-notas: 132 204 22;     /* lime-500 */
+  --c-habitos: 21 128 61;    /* green-700 */
+  --c-insights: 45 212 191;  /* teal-400 */
+  --c-config: 71 85 105;     /* slate-600 */
+}
 .grid {
   display: grid;
   grid-template-columns: 1fr;

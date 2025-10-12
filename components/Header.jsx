@@ -34,6 +34,8 @@ export default function Header() {
     if (typeof window === "undefined") return;
     const saved = localStorage.getItem("ui_density") || "normal";
     document.documentElement.setAttribute("data-density", saved);
+    const colorTheme = localStorage.getItem("ui_color_theme") || "default";
+    document.documentElement.setAttribute("data-color-theme", colorTheme);
   }, []);
 
   return (
