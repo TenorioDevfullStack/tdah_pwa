@@ -70,10 +70,10 @@ export default function Pomodoro() {
         {mm}:{ss}
       </div>
       <div className="row">
-        <button className="button" onClick={() => setRunning(!running)}>
+        <button className="button primary" onClick={() => setRunning(!running)}>
           {running ? "Pausar" : "Iniciar"}
         </button>
-        <button className="button" onClick={() => resetTo(mode)}>
+        <button className="button ghost" onClick={() => resetTo(mode)}>
           Reiniciar
         </button>
         <span className="badge">Modo: {mode}</span>

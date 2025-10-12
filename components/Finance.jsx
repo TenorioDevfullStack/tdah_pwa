@@ -60,7 +60,7 @@ export default function Finance(){
         <select className="select" name="cat">{cats.map(c=><option key={c}>{c}</option>)}</select>
         <input className="input" name="date" type="date"/>
         <input className="input" name="amount" placeholder="Valor (ex.: 12.50)"/>
-        <button className="button">Adicionar</button>
+        <button className="button primary">Adicionar</button>
       </form>
 
       <div className="row" style={{marginTop:8}}>
@@ -77,7 +77,7 @@ export default function Finance(){
               <div className="small">{i.date||'—'} • {i.type}</div>
             </div>
             <div style={{fontWeight:700}}>{(i.type==='Receita'?'+':'-')} R$ {i.amount.toFixed(2)}</div>
-            <button className="button" onClick={()=>del(i.id)} style={{borderColor:'var(--danger)'}}>Excluir</button>
+            <button className="button danger" onClick={()=>del(i.id)}>Excluir</button>
           </div>
         ))}
         {!view.length && <div className="notice small">Sem lançamentos.</div>}

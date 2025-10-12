@@ -32,7 +32,7 @@ export default function StudyPlanner(){
       <h3>Estudos</h3>
       <form onSubmit={addTopic} className="row">
         <input className="input" name="topic" placeholder="Adicionar tópico (ex.: Cálculo, JS, NBR 5410)"/>
-        <button className="button">Adicionar tópico</button>
+        <button className="button primary">Adicionar tópico</button>
       </form>
 
       <div className="row" style={{marginTop:8}}>
@@ -42,7 +42,7 @@ export default function StudyPlanner(){
         </select>
         <input className="input" type="number" min="5" value={session.minutes} onChange={e=>setSession({...session,minutes:parseInt(e.target.value||'30')})}/>
         <input className="input" placeholder="Anotações" value={session.note} onChange={e=>setSession({...session,note:e.target.value})}/>
-        <button className="button" onClick={logSession} type="button">Registrar sessão</button>
+        <button className="button primary" onClick={logSession} type="button">Registrar sessão</button>
       </div>
 
       <div className="list">

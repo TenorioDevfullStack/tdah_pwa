@@ -101,7 +101,7 @@ export default function Page() {
       {active === "config" && <Settings />}
 
       <div style={{ marginTop: 16 }}>
-        <button id="install-btn" className="button" style={{ display: "none" }}>
+        <button id="install-btn" className="button primary" style={{ display: "none" }}>
           Instalar no dispositivo
         </button>
         <div className="small">

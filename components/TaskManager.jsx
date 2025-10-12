@@ -151,7 +151,7 @@ export default function TaskManager() {
             <option key={r}>{r}</option>
           ))}
         </select>
-        <button className="button">Adicionar</button>
+        <button className="button primary">Adicionar</button>
       </form>
 
       <div className="row" style={{ marginTop: 8 }}>
@@ -210,9 +210,8 @@ export default function TaskManager() {
                 {t.done ? "Reabrir" : "Concluir"}
               </button>
               <button
-                className="button"
+                className="button danger"
                 onClick={() => del(t.id)}
-                style={{ borderColor: "var(--danger)" }}
               >
                 Excluir
               </button>

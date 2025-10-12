@@ -8,6 +8,10 @@
   --warn: #f59e0b;
   --danger: #ef4444;
   --border: rgba(148, 163, 184, 0.18);
+  --radius: 10px;
+  --radius-lg: 14px;
+  --shadow: 0 8px 20px rgba(0,0,0,0.25);
+  --focus: 0 0 0 3px rgba(79, 70, 229, 0.35);
 }
 
 [data-theme="light"] {
@@ -45,6 +49,8 @@ body {
     ),
     var(--bg);
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 [data-theme="light"] body {
   background: var(--bg);
@@ -84,7 +90,7 @@ a {
 .logo {
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: var(--brand);
   display: grid;
   place-items: center;
@@ -100,14 +106,22 @@ a {
 .tab {
   padding: 10px 14px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
   cursor: pointer;
   user-select: none;
+  transition: background 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 .tab.active {
   border-color: rgba(79, 70, 229, 0.5);
   box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15) inset;
+}
+.tab:hover {
+  border-color: rgba(79, 70, 229, 0.35);
+}
+.tab:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
 }
 .grid {
   display: grid;
@@ -122,8 +136,10 @@ a {
 .card {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   padding: 16px;
+  transition: border-color 160ms ease, box-shadow 160ms ease,
+    background 160ms ease;
 }
 [data-theme="light"] .card {
   background: #fff;
@@ -140,8 +156,10 @@ textarea {
   border: 1px solid var(--border);
   color: var(--text);
   padding: 10px 12px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   outline: none;
+  transition: border-color 120ms ease, box-shadow 120ms ease,
+    background 160ms ease, transform 60ms ease;
 }
 [data-theme="light"] .input,
 [data-theme="light"] .select,
@@ -152,6 +170,39 @@ textarea {
 
 .button {
   cursor: pointer;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+}
+.button:hover {
+  border-color: rgba(79, 70, 229, 0.35);
+}
+.button:active {
+  transform: translateY(1px);
+}
+.button.primary {
+  background: linear-gradient(180deg, rgba(79,70,229,0.15), rgba(79,70,229,0.05));
+  border-color: rgba(79, 70, 229, 0.6);
+  box-shadow: 0 0 0 1px rgba(79,70,229,0.25) inset;
+}
+.button.primary:hover {
+  border-color: rgba(79, 70, 229, 0.8);
+}
+.button.danger {
+  background: linear-gradient(180deg, rgba(239,68,68,0.12), rgba(239,68,68,0.04));
+  border-color: rgba(239, 68, 68, 0.6);
+}
+.button.danger:hover {
+  border-color: rgba(239, 68, 68, 0.85);
+}
+.button.ghost {
+  background: transparent;
+}
+.input:focus,
+.select:focus,
+textarea:focus,
+.button:focus-visible {
+  outline: none;
+  border-color: rgba(79, 70, 229, 0.6);
+  box-shadow: var(--focus);
 }
 .row {
   display: flex;
@@ -172,6 +223,17 @@ textarea {
   font-size: 12px;
   color: var(--muted);
 }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 .list {
   display: grid;
   gap: 10px;
@@ -180,7 +242,7 @@ textarea {
 .item {
   padding: 10px;
   border: 1px dashed var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -207,7 +269,7 @@ hr {
 .notice {
   padding: 10px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   background: #0e1427;
 }
 [data-theme="light"] .notice {
@@ -243,10 +305,11 @@ footer {
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius);
   height: 38px;
   cursor: pointer;
   user-select: none;
+  transition: background 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
 }
 .habit-cell.checked {
   outline: 2px solid rgba(34, 197, 94, 0.4);
@@ -259,5 +322,20 @@ footer {
 .theme-toggle {
   border: 1px solid var(--border);
   padding: 6px 10px;
-  border-radius: 10px;
+  border-radius: var(--radius);
+}
+
+/* Scrollbar (webkit) */
+*::-webkit-scrollbar { height: 10px; width: 10px; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.6); }
+
+/* Reduce motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
 }

@@ -89,7 +89,7 @@ export default function Habits() {
           onChange={(e) => setNewHabit(e.target.value)}
           style={{ flex: 1, minWidth: 240 }}
         />
-        <button className="button">Adicionar</button>
+        <button className="button primary">Adicionar</button>
       </form>
 
       <div className="habits-grid" style={{ marginTop: 12 }}>
@@ -132,9 +132,8 @@ export default function Habits() {
         {habits.map((h) => (
           <button
             key={h.id}
-            className="button"
+            className="button danger"
             onClick={() => removeHabit(h.id)}
-            style={{ borderColor: "var(--danger)" }}
           >
             Remover “{h.name}”
           </button>

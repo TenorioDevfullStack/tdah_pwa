@@ -48,7 +48,13 @@ export default function Header() {
       </div>
 
       <div className="row">
-        <button className="theme-toggle" onClick={toggle}>
+        <button
+          className="theme-toggle"
+          onClick={toggle}
+          aria-pressed={theme === 'light'}
+          aria-label={theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'}
+          title={theme === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'}
+        >
           {theme === "dark" ? "🌙 Escuro" : "☀️ Claro"}
         </button>
       </div>
