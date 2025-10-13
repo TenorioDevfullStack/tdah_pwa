@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { load, save } from "@/lib/storage";
 
 const KEYS = [
@@ -167,6 +168,10 @@ export default function Settings() {
       </div>
       <div className="small" style={{marginTop:8}}>
         Para testar via API v1, use o script <code>npm run send:fcm</code> e informe o token acima.
+      </div>
+
+      <div className="row" style={{ marginTop: 8 }}>
+        <Link href="/debug/fcm" className="button">Abrir Debug FCM</Link>
       </div>
       <div className="small" style={{ marginTop: 8 }}>
         Inclui: tarefas, tópicos e histórico de estudos, finanças, notas e
