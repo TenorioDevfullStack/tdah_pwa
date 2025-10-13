@@ -19,6 +19,7 @@ export default function Settings() {
   const [fcmToken, setFcmToken] = useState("");
   const [sendTitle, setSendTitle] = useState("Teste");
   const [sendBody, setSendBody] = useState("Olá do FCM!");
+  const ENABLE_FCM = process.env.NEXT_PUBLIC_ENABLE_FCM !== 'false';
 
   function exportData() {
     const data = {};
@@ -130,6 +131,7 @@ export default function Settings() {
         <span className="small">Muda as cores de ícones, foco e destaques por seção.</span>
       </div>
 
+      {ENABLE_FCM && (<>
       <hr />
       <h4>Notificações (FCM)</h4>
       <div className="row">
@@ -196,6 +198,7 @@ export default function Settings() {
           }}
         >Enviar teste (servidor)</button>
       </div>
+      </>)}
 
       {process.env.NODE_ENV !== 'production' && (
         <div className="row" style={{ marginTop: 8 }}>
