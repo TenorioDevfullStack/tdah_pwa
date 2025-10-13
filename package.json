@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "echo \"No lint config\""
+    "lint": "echo \"No lint config\"",
+    "send:fcm": "node scripts/send-fcm.mjs --project=$env:NEXT_PUBLIC_FIREBASE_PROJECT_ID --token=$env:FCM_TOKEN --title=Teste --body=\"Olá do FCM!\" --link=$env:NEXT_PUBLIC_SITE_URL"
   },
   "dependencies": {
     "next": "14.2.5",

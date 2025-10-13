@@ -15,6 +15,7 @@ export default function Settings() {
   const fileRef = useRef(null);
   const [density, setDensity] = useState(load("ui_density", "normal"));
   const [colorTheme, setColorTheme] = useState(load("ui_color_theme", "default"));
+  const [fcmToken, setFcmToken] = useState("");
 
   function exportData() {
     const data = {};
@@ -67,6 +68,12 @@ export default function Settings() {
     }
   }, [colorTheme]);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const t = localStorage.getItem("fcm_token") || "";
+    setFcmToken(t);
+  }, []);
+
   return (
     <div className="card">
       <h3>Configurações</h3>
@@ -118,6 +125,48 @@ export default function Settings() {
           </select>
         </label>
         <span className="small">Muda as cores de ícones, foco e destaques por seção.</span>
+      </div>
+
+      <hr />
+      <h4>Notificações (FCM)</h4>
+      <div className="row">
+        <input className="input" readOnly value={fcmToken} style={{flex:1,minWidth:260}} placeholder="Token FCM"/>
+        <button
+          className="button"
+          type="button"
+          onClick={async ()=>{
+            try{
+              await navigator.clipboard.writeText(fcmToken||'');
+              window.dispatchEvent(new CustomEvent('toast',{detail:{text:'Token copiado'}}));
+            }catch{}
+          }}
+        >Copiar token</button>
+        <button
+          className="button primary"
+          type="button"
+          onClick={async ()=>{
+            try{
+              if (Notification.permission !== 'granted') await Notification.requestPermission();
+              const reg = await navigator.serviceWorker?.ready;
+              if (reg?.showNotification){
+                reg.showNotification('Teste local', { body:'Isto é um teste local (sem FCM).', icon:'/icons/icon-192.png' });
+              }else{
+                new Notification('Teste local',{ body:'Isto é um teste local (sem FCM).' });
+              }
+            }catch(e){}
+          }}
+        >Notificação local (teste)</button>
+        <button
+          className="button"
+          type="button"
+          onClick={()=>{
+            const perm = Notification?.permission;
+            window.dispatchEvent(new CustomEvent('toast',{detail:{text:`Permissão: ${perm||'indisponível'}`}}));
+          }}
+        >Ver permissão</button>
+      </div>
+      <div className="small" style={{marginTop:8}}>
+        Para testar via API v1, use o script <code>npm run send:fcm</code> e informe o token acima.
       </div>
       <div className="small" style={{ marginTop: 8 }}>
         Inclui: tarefas, tópicos e histórico de estudos, finanças, notas e
