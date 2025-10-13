@@ -17,6 +17,8 @@ export default function Settings() {
   const [density, setDensity] = useState(load("ui_density", "normal"));
   const [colorTheme, setColorTheme] = useState(load("ui_color_theme", "default"));
   const [fcmToken, setFcmToken] = useState("");
+  const [sendTitle, setSendTitle] = useState("Teste");
+  const [sendBody, setSendBody] = useState("Olá do FCM!");
 
   function exportData() {
     const data = {};
@@ -168,6 +170,31 @@ export default function Settings() {
       </div>
       <div className="small" style={{marginTop:8}}>
         Para testar via API v1, use o script <code>npm run send:fcm</code> e informe o token acima.
+      </div>
+
+      <div className="row" style={{ marginTop: 8 }}>
+        <input className="input" value={sendTitle} onChange={e=>setSendTitle(e.target.value)} placeholder="Título"/>
+        <input className="input" value={sendBody} onChange={e=>setSendBody(e.target.value)} placeholder="Corpo" style={{flex:1,minWidth:220}}/>
+        <button
+          className="button primary"
+          type="button"
+          onClick={async ()=>{
+            try{
+              const res = await fetch('/api/fcm/send', {
+                method:'POST', headers:{'Content-Type':'application/json'},
+                body: JSON.stringify({ token: fcmToken, title: sendTitle, body: sendBody, link: window.location.origin })
+              })
+              const txt = await res.text()
+              if(res.ok){
+                window.dispatchEvent(new CustomEvent('toast',{detail:{text:'Enviado pelo servidor'}}))
+              }else{
+                window.dispatchEvent(new CustomEvent('toast',{detail:{text:'Falha no envio: '+txt}}))
+              }
+            }catch(e){
+              window.dispatchEvent(new CustomEvent('toast',{detail:{text:'Erro: '+(e?.message||e)}}))
+            }
+          }}
+        >Enviar teste (servidor)</button>
       </div>
 
       {process.env.NODE_ENV !== 'production' && (
