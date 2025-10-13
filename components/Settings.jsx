@@ -170,9 +170,11 @@ export default function Settings() {
         Para testar via API v1, use o script <code>npm run send:fcm</code> e informe o token acima.
       </div>
 
-      <div className="row" style={{ marginTop: 8 }}>
-        <Link href="/debug/fcm" className="button">Abrir Debug FCM</Link>
-      </div>
+      {process.env.NODE_ENV !== 'production' && (
+        <div className="row" style={{ marginTop: 8 }}>
+          <Link href="/debug/fcm" className="button">Abrir Debug FCM</Link>
+        </div>
+      )}
       <div className="small" style={{ marginTop: 8 }}>
         Inclui: tarefas, tópicos e histórico de estudos, finanças, notas e
         configurações do Pomodoro.
