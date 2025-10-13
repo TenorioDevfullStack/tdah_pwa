@@ -77,3 +77,35 @@ npm ci
 npm run build
 # Em produção, use `npm run start` para iniciar o servidor criado pelo Next.js
 ```
+
+---
+
+## 🔔 FCM (Push) — Como reativar com segurança
+
+O app já está preparado para notificações push via Firebase Cloud Messaging (FCM), mas por padrão vem desativado para simplificar. Siga estes passos quando quiser ativar:
+
+1) Variáveis de ambiente
+- Em `.env.local` defina:
+  - `NEXT_PUBLIC_ENABLE_FCM=true`
+  - `NEXT_PUBLIC_SITE_URL=https://seu-dominio.com` (ou `http://localhost:3000` em dev)
+  - As chaves do Firebase Web (SDK): `NEXT_PUBLIC_FIREBASE_*` e `NEXT_PUBLIC_FIREBASE_VAPID_KEY`
+
+2) Credenciais de servidor (Service Account)
+- Nunca versione a chave. Use variável de ambiente do runtime:
+  - `GOOGLE_SERVICE_ACCOUNT_JSON` com o JSON inteiro (recomendado)
+  - ou `GOOGLE_APPLICATION_CREDENTIALS` apontando para o caminho do arquivo no servidor (ex.: `E:\credenciais\tdah-service.json`).
+
+3) Executar localmente (para testar background)
+- Em dev, o SW do PWA costuma ficar desativado. Para testar push em background, rode:
+  - `npm run build && npm start`
+  - Acesse `/debug/fcm` para gerar/copiar o token.
+- Em Configurações, use “Enviar teste (servidor)” (endpoint `/api/fcm/send`).
+
+4) Produção (ex.: Vercel)
+- Configure `NEXT_PUBLIC_*` e `NEXT_PUBLIC_ENABLE_FCM=true` nas variáveis.
+- Adicione `GOOGLE_SERVICE_ACCOUNT_JSON` (secreto) com o JSON da Service Account.
+- Faça o deploy; o botão de envio em Configurações passa a funcionar.
+
+Notas
+- O Service Worker é único (o do PWA, `/sw.js`). O antigo `public/firebase-messaging-sw.js` foi removido para evitar conflito.
+- Opcionalmente, você pode enviar mensagens via terminal com `scripts/send-fcm.mjs`.
