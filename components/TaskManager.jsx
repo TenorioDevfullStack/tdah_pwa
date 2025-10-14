@@ -211,10 +211,26 @@ export default function TaskManager() {
 
       <div className="list">
         {view.map((t) => (
-          <div className="item" key={t.id} style={{
-            borderColor: t.due && !t.done && t.due < new Date().toISOString().slice(0,10) ? 'var(--danger)' : undefined
-          }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <div
+            className="item task-item"
+            key={t.id}
+            style={{
+              borderColor:
+                t.due && !t.done && t.due < new Date().toISOString().slice(0, 10)
+                  ? "var(--danger)"
+                  : undefined,
+            }}
+          >
+            <div
+              className="task-item__info"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                flexWrap: "wrap",
+                width: "100%",
+              }}
+            >
               <input
                 type="checkbox"
                 checked={t.done}
@@ -235,7 +251,7 @@ export default function TaskManager() {
                 </div>
               </div>
             </div>
-            <div className="row">
+            <div className="row task-item__actions">
               <button className="button" onClick={() => toggle(t.id)}>
                 {t.done ? "Reabrir" : "Concluir"}
               </button>

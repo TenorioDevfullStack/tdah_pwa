@@ -688,3 +688,12 @@ footer {
 .beta-admin .item { align-items: center; }
 .beta-admin .item .button { white-space: nowrap; }
 
+
+.task-item__actions { justify-content: flex-start; }
+.task-item__info .badge { margin-bottom: 4px; }
+@media (max-width: 640px){
+  .task-item { gap: 12px; }
+  .task-item__actions { width: 100%; justify-content: space-between; }
+  .task-item__actions .button { flex: 1 1 auto; min-width: 130px; }
+}
+
