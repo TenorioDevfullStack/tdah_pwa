@@ -31,7 +31,9 @@ import Header from "@/components/Header";
 import Toaster from "@/components/Toaster";
 import SWUpdateBanner from "@/components/SWUpdateBanner";
 import PushOptInBanner from "@/components/PushOptInBanner";
-const ENABLE_FCM = process.env.NEXT_PUBLIC_ENABLE_FCM !== 'false';
+const ENABLE_FCM = process.env.NEXT_PUBLIC_ENABLE_FCM !== "false";
+const ENABLE_DEV_TOOLS =
+  process.env.NEXT_PUBLIC_ENABLE_DEV_TOOLS !== "false";
 
 export default function RootLayout({ children }) {
   return (
@@ -61,8 +63,14 @@ export default function RootLayout({ children }) {
         {ENABLE_FCM && <PushOptInBanner />}
         <footer>
           Rotina TDAH — organize tarefas, estudos, tempo e finanças. <br />
-          Funciona offline e sincroniza localmente (sem nuvem). · 
-          <a href="/feedback">Enviar feedback</a> · <a href="/qr">QR Code</a>
+          Funciona offline e sincroniza localmente (sem nuvem). ·{" "}
+          <a href="/feedback">Enviar feedback</a>
+          {ENABLE_DEV_TOOLS && (
+            <>
+              {" "}
+              · <a href="/qr">QR Code</a>
+            </>
+          )}
         </footer>
       </body>
     </html>

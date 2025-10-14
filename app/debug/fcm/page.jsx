@@ -2,7 +2,21 @@
 import { useEffect, useState } from "react";
 import { initMessaging } from "@/lib/push";
 
+const DEV_TOOLS =
+  process.env.NEXT_PUBLIC_ENABLE_DEV_TOOLS === "true";
+
 export default function FCMDebugPage() {
+  if (!DEV_TOOLS) {
+    return (
+      <div className="card">
+        <h3>Debug FCM</h3>
+        <div className="small">
+          Área disponível apenas na versão de desenvolvedor
+          (defina <code>NEXT_PUBLIC_ENABLE_DEV_TOOLS=true</code>).
+        </div>
+      </div>
+    );
+  }
   const [permission, setPermission] = useState("unknown");
   const [token, setToken] = useState("");
   const [swReady, setSwReady] = useState(false);
@@ -138,4 +152,3 @@ export default function FCMDebugPage() {
     </div>
   );
 }
-

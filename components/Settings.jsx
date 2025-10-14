@@ -19,7 +19,10 @@ export default function Settings() {
   const [fcmToken, setFcmToken] = useState("");
   const [sendTitle, setSendTitle] = useState("Teste");
   const [sendBody, setSendBody] = useState("Olá do FCM!");
-  const ENABLE_FCM = process.env.NEXT_PUBLIC_ENABLE_FCM !== 'false';
+  const ENABLE_DEV_TOOLS =
+    process.env.NEXT_PUBLIC_ENABLE_DEV_TOOLS === "true";
+  const ENABLE_FCM =
+    ENABLE_DEV_TOOLS && process.env.NEXT_PUBLIC_ENABLE_FCM !== "false";
 
   function exportData() {
     const data = {};
@@ -73,10 +76,11 @@ export default function Settings() {
   }, [colorTheme]);
 
   useEffect(() => {
+    if (!ENABLE_FCM) return;
     if (typeof window === "undefined") return;
     const t = localStorage.getItem("fcm_token") || "";
     setFcmToken(t);
-  }, []);
+  }, [ENABLE_FCM]);
 
   return (
     <div className="card">
@@ -200,7 +204,8 @@ export default function Settings() {
       </div>
       </>)}
 
-      {process.env.NODE_ENV !== 'production' && (
+      {(process.env.NODE_ENV !== 'production' ||
+        process.env.NEXT_PUBLIC_ENABLE_DEV_TOOLS === 'true') && (
         <div className="row" style={{ marginTop: 8 }}>
           <Link href="/debug/fcm" className="button">Abrir Debug FCM</Link>
         </div>

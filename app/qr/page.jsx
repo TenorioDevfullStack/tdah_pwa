@@ -1,7 +1,21 @@
 "use client";
 import { useMemo, useState } from "react";
 
+const DEV_TOOLS =
+  process.env.NEXT_PUBLIC_ENABLE_DEV_TOOLS === "true";
+
 export default function QRPage() {
+  if (!DEV_TOOLS) {
+    return (
+      <div className="card">
+        <h3>QR Code</h3>
+        <div className="small">
+          Disponível apenas na versão de desenvolvedor
+          (defina <code>NEXT_PUBLIC_ENABLE_DEV_TOOLS=true</code>).
+        </div>
+      </div>
+    );
+  }
   const [source, setSource] = useState("qr");
   const [medium, setMedium] = useState("offline");
   const [campaign, setCampaign] = useState("teste-v1");

@@ -7,6 +7,7 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 
 export const runtime = 'nodejs'
+const DEV_TOOLS = process.env.NEXT_PUBLIC_ENABLE_DEV_TOOLS === 'true'
 
 function loadServiceAccount() {
   // 1) JSON inline in env
@@ -58,6 +59,12 @@ async function getAccessToken(sa){
 }
 
 export async function POST(req){
+  if (!DEV_TOOLS) {
+    return new Response(
+      JSON.stringify({ error: 'Endpoint desabilitado' }),
+      { status: 403 }
+    )
+  }
   try{
     const body = await req.json()
     const { token, topic, condition, title = 'Teste', body: msgBody = '', link = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000' } = body || {}
@@ -95,4 +102,3 @@ export async function POST(req){
     return new Response(JSON.stringify({ error: String(e?.message || e) }), { status: 500 })
   }
 }
-
