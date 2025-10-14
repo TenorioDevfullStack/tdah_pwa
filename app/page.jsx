@@ -140,11 +140,6 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="notice small" style={{ marginTop: 12 }}>
-          ⚠️ Notificações agendadas funcionam com o app aberto. Para push em
-          segundo plano, depois integramos Firebase Cloud Messaging.
-        </div>
-
         <CommandPalette />
       </div>
     </div>
