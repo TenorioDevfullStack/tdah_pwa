@@ -608,3 +608,62 @@ footer {
 [data-density="compact"] .button,
 [data-density="compact"] textarea { padding: 8px 10px; min-height: 34px; }
 [data-density="compact"] .theme-toggle { padding: 4px 8px; }
+
+.beta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(79, 70, 229, 0.14);
+  color: rgba(79, 70, 229, 0.9);
+  border: 1px solid rgba(79, 70, 229, 0.32);
+}
+
+
+.beta-hero {
+  display: grid;
+  gap: 32px;
+}
+.beta-hero__card {
+  background: linear-gradient(135deg, rgba(79,70,229,0.16), rgba(14,116,144,0.12));
+  border: 1px solid rgba(79, 70, 229, 0.25);
+  border-radius: 20px;
+  padding: 32px 28px;
+  box-shadow: var(--shadow);
+}
+.beta-hero__card h1 { margin: 12px 0 8px; font-size: 2rem; }
+.beta-hero__card p { font-size: 0.95rem; color: var(--muted); max-width: 720px; }
+.beta-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+
+.beta-section { border: 1px solid var(--border); border-radius: 18px; padding: 24px; background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent); }
+.beta-section + .beta-section { margin-top: 16px; }
+.beta-section h2 { margin-top: 0; }
+
+.beta-steps { display: grid; gap: 16px; }
+.beta-steps__tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.beta-steps__tab { padding: 10px 14px; border-radius: var(--radius); border: 1px solid rgba(148,163,184,0.25); background: transparent; cursor: pointer; transition: border-color 160ms ease, box-shadow 160ms ease; }
+.beta-steps__tab--active { border-color: rgba(79,70,229,0.6); box-shadow: 0 0 0 2px rgba(79,70,229,0.15); background: rgba(79,70,229,0.12); }
+.beta-steps__content ul { margin: 0; padding-left: 20px; font-size: 0.95rem; display: grid; gap: 6px; }
+
+.beta-modules { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 16px; }
+.beta-modules__card { border: 1px dashed rgba(79,70,229,0.3); border-radius: 14px; padding: 16px; background: rgba(79,70,229,0.08); }
+.beta-modules__card h3 { margin: 0 0 6px; }
+
+.beta-checklist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 0.95rem; }
+
+@media (max-width: 640px) {
+  .beta-hero__card { padding: 24px 20px; }
+  .beta-hero__card h1 { font-size: 1.6rem; }
+  .beta-hero__actions { flex-direction: column; align-items: stretch; }
+}
+
+
+.beta-login { display: grid; gap: 12px; margin-top: 16px; }
+.beta-admin .item { align-items: center; }
+.beta-admin .item .button { white-space: nowrap; }
+

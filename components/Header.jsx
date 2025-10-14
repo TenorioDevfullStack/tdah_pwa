@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 function useTheme() {
   const [theme, setTheme] = useState("dark");
@@ -50,12 +51,18 @@ export default function Header() {
           priority
         />
         <div>
-          <div style={{ fontWeight: 800, fontSize: "1.1rem" }}>Rotina TDAH</div>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ fontWeight: 800, fontSize: "1.1rem" }}>Rotina TDAH</div>
+            <span className="beta-pill">Versão Beta</span>
+          </div>
           <div className="small brand-sub">PWA offline • Foco, Tarefas e Organização</div>
         </div>
       </div>
 
       <div className="row">
+        <Link href="/feedback" className="button primary" style={{ fontWeight: 600 }}>
+          Enviar feedback
+        </Link>
         <button
           className="theme-toggle"
           onClick={toggle}

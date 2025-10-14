@@ -129,3 +129,4 @@ Notas
 Sugestão de fluxo:
 - `main` → build de testes (dev tools desligados) para amigos/usuários.
 - `dev` ou branch separada → build de desenvolvimento com dev tools habilitados.
+\n## 🔐 Painel do desenvolvedor (/admin)\n- Protegido por credenciais (ADMIN_USERNAME e ADMIN_PASSWORD).\n- Login feito via POST /api/admin/login (não expõe credenciais no cliente).\n- Depois de autenticado, exibe atalhos para /debug/fcm, /qr, /teste e dicas de variáveis.\n
