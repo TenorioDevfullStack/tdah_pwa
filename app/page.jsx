@@ -18,18 +18,33 @@ export default function Page() {
   // PWA install hint
   useEffect(() => {
     if (typeof window === "undefined") return;
-    window.addEventListener("beforeinstallprompt", (e) => {
+    const handler = (e) => {
       e.preventDefault();
-      const deferredPrompt = e;
+      const promptEvent = e;
       const btn = document.getElementById("install-btn");
       if (btn) {
-        btn.style.display = "inline-block";
+        btn.style.display = "inline-flex";
+        btn.disabled = false;
         btn.onclick = async () => {
-          btn.style.display = "none";
-          await deferredPrompt.prompt();
+          try {
+            btn.disabled = true;
+            await promptEvent.prompt();
+            const choice = await promptEvent.userChoice.catch(() => null);
+            if (!choice || choice.outcome !== "accepted") {
+              btn.disabled = false;
+              btn.style.display = "inline-flex";
+            } else {
+              btn.style.display = "none";
+            }
+          } catch {
+            btn.disabled = false;
+            btn.style.display = "inline-flex";
+          }
         };
       }
-    });
+    };
+    window.addEventListener("beforeinstallprompt", handler);
+    return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
   // ⌨️ Atalhos globais
