@@ -62,7 +62,7 @@ export default function RootLayout({ children }) {
         <footer>
           Rotina TDAH — organize tarefas, estudos, tempo e finanças. <br />
           Funciona offline e sincroniza localmente (sem nuvem). · 
-          <a href="/feedback">Enviar feedback</a>
+          <a href="/feedback">Enviar feedback</a> · <a href="/qr">QR Code</a>
         </footer>
       </body>
     </html>
