@@ -44,9 +44,9 @@ export default function Header() {
         <Image
           src="/icons/icon-192.png"
           alt="Logo Rotina TDAH"
-          width={42}
-          height={42}
-          style={{ borderRadius: "10px" }}
+          width={54}
+          height={54}
+          style={{ borderRadius: "12px" }}
           priority
         />
         <div>

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { initMessaging } from "@/lib/push";
+import Link from "next/link";
 
 const DEV_TOOLS =
   process.env.NEXT_PUBLIC_ENABLE_DEV_TOOLS === "true";
@@ -13,6 +14,11 @@ export default function FCMDebugPage() {
         <div className="small">
           Área disponível apenas na versão de desenvolvedor
           (defina <code>NEXT_PUBLIC_ENABLE_DEV_TOOLS=true</code>).
+        </div>
+        <div className="row" style={{ marginTop: 12, justifyContent: "flex-end" }}>
+          <Link href="/" className="button">
+            Voltar ao app
+          </Link>
         </div>
       </div>
     );
@@ -100,6 +106,11 @@ export default function FCMDebugPage() {
 
   return (
     <div className="card">
+      <div className="row" style={{ justifyContent: "flex-end" }}>
+        <Link href="/" className="button">
+          Voltar ao app
+        </Link>
+      </div>
       <h3>Debug FCM</h3>
       <div className="row">
         <span className="badge">Permissão: {permission}</span>

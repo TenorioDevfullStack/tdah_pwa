@@ -1,4 +1,4 @@
-import { headers } from "next/headers";
+import Link from "next/link";
 
 export const metadata = { title: "Feedback" };
 
@@ -8,6 +8,11 @@ export default function FeedbackPage() {
 
   return (
     <div className="card">
+      <div className="row" style={{ justifyContent: "flex-end" }}>
+        <Link href="/" className="button">
+          Voltar ao app
+        </Link>
+      </div>
       <h3>Feedback</h3>
       {!url && (
         <div className="notice small" style={{ marginBottom: 12 }}>

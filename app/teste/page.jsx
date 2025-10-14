@@ -34,6 +34,11 @@ const shareLinks = [
 export default function TestLanding() {
   return (
     <div className="card">
+      <div className="row" style={{ justifyContent: "flex-end" }}>
+        <Link href="/" className="button">
+          Voltar ao app
+        </Link>
+      </div>
       <h3>Guia rápido para testers</h3>
       <p className="small">
         Obrigado por testar o Rotina TDAH! Siga os passos abaixo e conte pra
@@ -143,4 +148,3 @@ export default function TestLanding() {
     </div>
   );
 }
-

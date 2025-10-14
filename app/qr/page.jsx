@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 const DEV_TOOLS =
@@ -12,6 +13,11 @@ export default function QRPage() {
         <div className="small">
           Disponível apenas na versão de desenvolvedor
           (defina <code>NEXT_PUBLIC_ENABLE_DEV_TOOLS=true</code>).
+        </div>
+        <div className="row" style={{ marginTop: 12, justifyContent: "flex-end" }}>
+          <Link href="/" className="button">
+            Voltar ao app
+          </Link>
         </div>
       </div>
     );
@@ -49,6 +55,11 @@ export default function QRPage() {
 
   return (
     <div className="card">
+      <div className="row" style={{ justifyContent: "flex-end" }}>
+        <Link href="/" className="button">
+          Voltar ao app
+        </Link>
+      </div>
       <h3>QR Code para divulgação</h3>
       <div className="row" style={{marginBottom:8}}>
         <label className="small">utm_source
