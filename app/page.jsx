@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import Tabs from "@/components/Tabs";
 import TaskManager from "@/components/TaskManager";
 import Pomodoro from "@/components/Pomodoro";
@@ -121,14 +120,6 @@ export default function Page() {
         <div className="notice small" style={{ marginBottom: 12 }}>
           🧪 Esta é uma versão de testes — dados ficam apenas no seu dispositivo. Envie suas impressões!
         </div>
-        <div className="row" style={{ marginBottom: 12, alignItems: "center", justifyContent: "space-between", gap: 12 }}>
-          <div className="small" style={{ fontWeight: 600 }}>
-            Queremos saber como foi sua experiência 🚀
-          </div>
-          <Link className="button primary" href="/feedback">
-            Responder feedback
-          </Link>
-        </div>
         {active === "tarefas" && (
           <div className="grid">
             <TaskManager />
@@ -157,4 +148,5 @@ export default function Page() {
     </div>
   );
 }
+
 
