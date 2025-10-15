@@ -1,3 +1,5 @@
+const path = require("path");
+
 const withPWA = require("@ducanh2912/next-pwa").default({
   dest: "public",
   register: true,
@@ -9,6 +11,11 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  webpack: (config) => {
+    config.resolve.alias = config.resolve.alias || {};
+    config.resolve.alias["@"] = path.resolve(__dirname);
+    return config;
+  },
 };
 
 module.exports = withPWA(nextConfig);
