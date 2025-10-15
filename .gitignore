@@ -11,3 +11,5 @@ service-account.json
 *.service-account.json
 *.private.json
 *.priv.json
+public/sw.js
+public/workbox-*.js
