@@ -1,7 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useI18n } from "@/components/I18nProvider";
 
 export default function SWUpdateBanner() {
+  const { messages } = useI18n();
+  const copy = messages.swUpdate;
   const [waitingReg, setWaitingReg] = useState(null);
 
   useEffect(() => {
@@ -46,9 +49,8 @@ export default function SWUpdateBanner() {
 
   return (
     <div className="toast sw-update">
-      <div className="toast-msg">Nova versão disponível</div>
-      <button className="button primary" onClick={updateNow}>Atualizar</button>
+      <div className="toast-msg">{copy.message}</div>
+      <button className="button primary" onClick={updateNow}>{copy.action}</button>
     </div>
   );
 }
-

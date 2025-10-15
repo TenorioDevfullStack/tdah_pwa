@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { load, save } from "@/lib/storage";
+import { useI18n } from "@/components/I18nProvider";
 
 const KEYS = [
   "tasks",
@@ -13,12 +14,15 @@ const KEYS = [
 ];
 
 export default function Settings() {
+  const { messages } = useI18n();
+  const copy = messages.settings;
+  const fcmCopy = copy.fcm;
   const fileRef = useRef(null);
   const [density, setDensity] = useState(load("ui_density", "normal"));
   const [colorTheme, setColorTheme] = useState(load("ui_color_theme", "default"));
   const [fcmToken, setFcmToken] = useState("");
-  const [sendTitle, setSendTitle] = useState("Teste");
-  const [sendBody, setSendBody] = useState("Olá do FCM!");
+  const [sendTitle, setSendTitle] = useState("");
+  const [sendBody, setSendBody] = useState("");
   const ENABLE_DEV_TOOLS =
     process.env.NEXT_PUBLIC_ENABLE_DEV_TOOLS === "true";
   const ENABLE_FCM =
@@ -52,9 +56,9 @@ export default function Settings() {
             save(k, data[k]);
           }
         });
-        alert("Importação concluída! Recarregue a página para ver os dados.");
+        alert(copy.importSuccess);
       } catch (err) {
-        alert("Arquivo inválido.");
+        alert(copy.importError);
       }
     };
     reader.readAsText(file);
@@ -84,13 +88,13 @@ export default function Settings() {
 
   return (
     <div className="card">
-      <h3>Configurações</h3>
+      <h3>{copy.title}</h3>
       <div className="row">
         <button className="button" onClick={exportData}>
-          Exportar dados (.json)
+          {copy.export}
         </button>
         <button className="button" onClick={() => fileRef.current?.click()}>
-          Importar dados (.json)
+          {copy.import}
         </button>
         <input
           ref={fileRef}
@@ -103,53 +107,53 @@ export default function Settings() {
       <hr />
       <div className="row">
         <label className="small">
-          Densidade de layout
+          {copy.densityLabel}
           <select
             className="select"
             value={density}
             onChange={(e) => setDensity(e.target.value)}
             style={{ marginLeft: 8 }}
           >
-            <option value="normal">Normal</option>
-            <option value="compact">Compacto</option>
+            <option value="normal">{copy.densityNormal}</option>
+            <option value="compact">{copy.densityCompact}</option>
           </select>
         </label>
-        <span className="small">Ajusta paddings e alturas para caber mais conteúdo.</span>
+        <span className="small">{copy.densityHint}</span>
       </div>
 
       <div className="row" style={{ marginTop: 8 }}>
         <label className="small">
-          Tema de cor
+          {copy.colorThemeLabel}
           <select
             className="select"
             value={colorTheme}
             onChange={(e) => setColorTheme(e.target.value)}
             style={{ marginLeft: 8 }}
           >
-            <option value="default">Padrão</option>
-            <option value="ocean">Ocean</option>
-            <option value="sunset">Sunset</option>
-            <option value="forest">Forest</option>
+            <option value="default">{copy.colorThemeDefault}</option>
+            <option value="ocean">{copy.colorThemeOcean}</option>
+            <option value="sunset">{copy.colorThemeSunset}</option>
+            <option value="forest">{copy.colorThemeForest}</option>
           </select>
         </label>
-        <span className="small">Muda as cores de ícones, foco e destaques por seção.</span>
+        <span className="small">{copy.colorThemeHint}</span>
       </div>
 
       {ENABLE_FCM && (<>
       <hr />
-      <h4>Notificações (FCM)</h4>
+      <h4>{fcmCopy.title}</h4>
       <div className="row">
-        <input className="input" readOnly value={fcmToken} style={{flex:1,minWidth:260}} placeholder="Token FCM"/>
+        <input className="input" readOnly value={fcmToken} style={{flex:1,minWidth:260}} placeholder={fcmCopy.placeholder}/>
         <button
           className="button"
           type="button"
           onClick={async ()=>{
             try{
               await navigator.clipboard.writeText(fcmToken||'');
-              window.dispatchEvent(new CustomEvent('toast',{detail:{text:'Token copiado'}}));
+              window.dispatchEvent(new CustomEvent('toast',{detail:{text:fcmCopy.copyToast}}));
             }catch{}
           }}
-        >Copiar token</button>
+        >{fcmCopy.copyToken}</button>
         <button
           className="button primary"
           type="button"
@@ -158,29 +162,29 @@ export default function Settings() {
               if (Notification.permission !== 'granted') await Notification.requestPermission();
               const reg = await navigator.serviceWorker?.ready;
               if (reg?.showNotification){
-                reg.showNotification('Teste local', { body:'Isto é um teste local (sem FCM).', icon:'/icons/icon-192.png' });
+                reg.showNotification(fcmCopy.localTitle, { body:fcmCopy.localBody, icon:'/icons/icon-192.png' });
               }else{
-                new Notification('Teste local',{ body:'Isto é um teste local (sem FCM).' });
+                new Notification(fcmCopy.localTitle,{ body:fcmCopy.localBody });
               }
             }catch(e){}
           }}
-        >Notificação local (teste)</button>
+        >{fcmCopy.localButton}</button>
         <button
           className="button"
           type="button"
           onClick={()=>{
             const perm = Notification?.permission;
-            window.dispatchEvent(new CustomEvent('toast',{detail:{text:`Permissão: ${perm||'indisponível'}`}}));
+            window.dispatchEvent(new CustomEvent('toast',{detail:{text:`${fcmCopy.permToast} ${perm||'—'}`}}));
           }}
-        >Ver permissão</button>
+        >{fcmCopy.permButton}</button>
       </div>
       <div className="small" style={{marginTop:8}}>
-        Para testar via API v1, use o script <code>npm run send:fcm</code> e informe o token acima.
+        {fcmCopy.hint}
       </div>
 
       <div className="row" style={{ marginTop: 8 }}>
-        <input className="input" value={sendTitle} onChange={e=>setSendTitle(e.target.value)} placeholder="Título"/>
-        <input className="input" value={sendBody} onChange={e=>setSendBody(e.target.value)} placeholder="Corpo" style={{flex:1,minWidth:220}}/>
+        <input className="input" value={sendTitle} onChange={e=>setSendTitle(e.target.value)} placeholder={fcmCopy.titlePlaceholder}/>
+        <input className="input" value={sendBody} onChange={e=>setSendBody(e.target.value)} placeholder={fcmCopy.bodyPlaceholder} style={{flex:1,minWidth:220}}/>
         <button
           className="button primary"
           type="button"
@@ -192,27 +196,26 @@ export default function Settings() {
               })
               const txt = await res.text()
               if(res.ok){
-                window.dispatchEvent(new CustomEvent('toast',{detail:{text:'Enviado pelo servidor'}}))
+                window.dispatchEvent(new CustomEvent('toast',{detail:{text:fcmCopy.toastSuccess}}))
               }else{
-                window.dispatchEvent(new CustomEvent('toast',{detail:{text:'Falha no envio: '+txt}}))
+                window.dispatchEvent(new CustomEvent('toast',{detail:{text:`${fcmCopy.toastFail} ${txt}`}}))
               }
             }catch(e){
-              window.dispatchEvent(new CustomEvent('toast',{detail:{text:'Erro: '+(e?.message||e)}}))
+              window.dispatchEvent(new CustomEvent('toast',{detail:{text:`${fcmCopy.toastError} ${(e?.message||e)}`}}))
             }
           }}
-        >Enviar teste (servidor)</button>
+        >{fcmCopy.serverTest}</button>
       </div>
       </>)}
 
       {(process.env.NODE_ENV !== 'production' ||
         process.env.NEXT_PUBLIC_ENABLE_DEV_TOOLS === 'true') && (
         <div className="row" style={{ marginTop: 8 }}>
-          <Link href="/debug/fcm" className="button">Abrir Debug FCM</Link>
+          <Link href="/debug/fcm" className="button">{copy.debugLink}</Link>
         </div>
       )}
       <div className="small" style={{ marginTop: 8 }}>
-        Inclui: tarefas, tópicos e histórico de estudos, finanças, notas e
-        configurações do Pomodoro.
+        {copy.backupHint}
       </div>
     </div>
   );

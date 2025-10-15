@@ -28,9 +28,11 @@ export const viewport = {
 
 import "./globals.css";
 import Header from "@/components/Header";
+import { I18nProvider } from "@/components/I18nProvider";
 import Toaster from "@/components/Toaster";
 import SWUpdateBanner from "@/components/SWUpdateBanner";
 import PushOptInBanner from "@/components/PushOptInBanner";
+import AppFooter from "@/components/AppFooter";
 const ENABLE_FCM = process.env.NEXT_PUBLIC_ENABLE_FCM !== "false";
 const ENABLE_DEV_TOOLS =
   process.env.NEXT_PUBLIC_ENABLE_DEV_TOOLS !== "false";
@@ -57,23 +59,19 @@ export default function RootLayout({ children }) {
         <meta name="application-name" content="Rotina TDAH" />
       </head>
       <body>
-        <Header />
-        <div className="container">{children}</div>
-        <Toaster />
-        <SWUpdateBanner />
-        {ENABLE_FCM && <PushOptInBanner />}
-        <footer>
-          Rotina TDAH — organize tarefas, estudos, tempo e finanças. <br />
-          Funciona offline e sincroniza localmente (sem nuvem). ·{" "}
-          <a href="/feedback">Enviar feedback</a>
-          {ENABLE_DEV_TOOLS && (
-            <>
-              {" "}
-              · <a href="/qr">QR Code</a>
-            </>
-          )}
-        </footer>
+        <I18nProvider>
+          <Header />
+          <div className="container">{children}</div>
+          <Toaster />
+          <SWUpdateBanner />
+          {ENABLE_FCM && <PushOptInBanner />}
+          <AppFooter enableDevTools={ENABLE_DEV_TOOLS} />
+        </I18nProvider>
       </body>
     </html>
   );
 }
+
+
+
+

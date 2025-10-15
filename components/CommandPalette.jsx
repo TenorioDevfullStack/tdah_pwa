@@ -1,9 +1,12 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
+import { useI18n } from "@/components/I18nProvider";
 
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
+  const { messages } = useI18n();
+  const copy = messages.commandPalette;
 
   useEffect(() => {
     const onKey = (e) => {
@@ -20,19 +23,74 @@ export default function CommandPalette() {
 
   const actions = useMemo(
     () => [
-      { id: "go:tarefas", label: "Ir para Tarefas", hint: "Ctrl+1", run: () => goTab("tarefas") },
-      { id: "go:foco", label: "Ir para Foco (Pomodoro)", hint: "Ctrl+2", run: () => goTab("foco") },
-      { id: "go:estudos", label: "Ir para Estudos", hint: "Ctrl+3", run: () => goTab("estudos") },
-      { id: "go:financas", label: "Ir para Finanças", hint: "Ctrl+4", run: () => goTab("financas") },
-      { id: "go:notas", label: "Ir para Notas", hint: "Ctrl+5", run: () => goTab("notas") },
-      { id: "go:habitos", label: "Ir para Hábitos", hint: "Ctrl+6", run: () => goTab("habitos") },
-      { id: "go:config", label: "Ir para Configurações", hint: "Ctrl+7", run: () => goTab("config") },
-      { id: "go:insights", label: "Ir para Insights", hint: "Ctrl+8", run: () => goTab("insights") },
-      { id: "task:new", label: "Adicionar nova tarefa", hint: "N", run: () => quickNewTask() },
-      { id: "task:search", label: "Buscar tarefas", hint: "/", run: () => focusTaskSearch() },
-      { id: "pomodoro:toggle", label: "Iniciar/Pausar Pomodoro", hint: "Espaço", run: () => togglePomodoro() },
+      {
+        id: "go:tarefas",
+        label: copy.actions.goTasks,
+        hint: "Ctrl+1",
+        run: () => goTab("tarefas"),
+      },
+      {
+        id: "go:foco",
+        label: copy.actions.goFocus,
+        hint: "Ctrl+2",
+        run: () => goTab("foco"),
+      },
+      {
+        id: "go:estudos",
+        label: copy.actions.goStudy,
+        hint: "Ctrl+3",
+        run: () => goTab("estudos"),
+      },
+      {
+        id: "go:financas",
+        label: copy.actions.goFinance,
+        hint: "Ctrl+4",
+        run: () => goTab("financas"),
+      },
+      {
+        id: "go:notas",
+        label: copy.actions.goNotes,
+        hint: "Ctrl+5",
+        run: () => goTab("notas"),
+      },
+      {
+        id: "go:habitos",
+        label: copy.actions.goHabits,
+        hint: "Ctrl+6",
+        run: () => goTab("habitos"),
+      },
+      {
+        id: "go:config",
+        label: copy.actions.goSettings,
+        hint: "Ctrl+7",
+        run: () => goTab("config"),
+      },
+      {
+        id: "go:insights",
+        label: copy.actions.goInsights,
+        hint: "Ctrl+8",
+        run: () => goTab("insights"),
+      },
+      {
+        id: "task:new",
+        label: copy.actions.newTask,
+        hint: "N",
+        run: () => quickNewTask(),
+      },
+      {
+        id: "task:search",
+        label: copy.actions.searchTasks,
+        hint: "/",
+        run: () => focusTaskSearch(),
+      },
+      {
+        id: "pomodoro:toggle",
+        label: copy.actions.togglePomodoro,
+        hint: copy.hintSpace,
+        run: () => togglePomodoro(),
+      },
     ],
-    []
+    [copy]
   );
 
   function goTab(key) {
@@ -66,7 +124,7 @@ export default function CommandPalette() {
         <input
           className="input"
           autoFocus
-          placeholder="Digite um comando... (ex.: tarefas, foco, adicionar)"
+          placeholder={copy.placeholder}
           value={q}
           onChange={(e) => setQ(e.target.value)}
           onKeyDown={(e) => {
@@ -80,10 +138,11 @@ export default function CommandPalette() {
               {a.hint && <span className="kbd">{a.hint}</span>}
             </div>
           ))}
-          {!filtered.length && <div className="notice small">Sem resultados</div>}
+          {!filtered.length && (
+            <div className="notice small">{copy.noResults}</div>
+          )}
         </div>
       </div>
     </div>
   );
 }
-

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { load, save } from "@/lib/storage";
+import { useI18n } from "@/components/I18nProvider";
 
 function uid() {
   return Math.random().toString(36).slice(2);
@@ -27,15 +28,18 @@ function getWeek(startFromToday = false) {
 }
 
 export default function Habits() {
-  const [habits, setHabits] = useState(
-    load("habits_list", [
-      { id: uid(), name: "Tomar medicação", active: true },
-      { id: uid(), name: "Revisar agenda do dia", active: true },
-      { id: uid(), name: "Sessão de estudo (25min)", active: true },
-      { id: uid(), name: "Alongamento 5min", active: true },
-      { id: uid(), name: "Revisar finanças rápidas", active: true },
-    ])
+  const { messages } = useI18n();
+  const copy = messages.habits;
+  const defaultHabits = useMemo(
+    () =>
+      copy.defaults.map((name) => ({
+        id: uid(),
+        name,
+        active: true,
+      })),
+    [copy.defaults]
   );
+  const [habits, setHabits] = useState(() => load("habits_list", defaultHabits));
   const [checks, setChecks] = useState(load("habits_checks", {})); // { '2025-10-10': {habitId: true} }
   const [newHabit, setNewHabit] = useState("");
 
@@ -79,17 +83,17 @@ export default function Habits() {
 
   return (
     <div className="card">
-      <h3>Hábitos (Checklist diário)</h3>
+      <h3>{copy.title}</h3>
 
       <form onSubmit={addHabit} className="row">
         <input
           className="input"
-          placeholder="Novo hábito..."
+          placeholder={copy.placeholder}
           value={newHabit}
           onChange={(e) => setNewHabit(e.target.value)}
           style={{ flex: 1, minWidth: 240 }}
         />
-        <button className="button primary">Adicionar</button>
+        <button className="button primary">{copy.addButton}</button>
       </form>
 
       <div className="habits-grid" style={{ marginTop: 12 }}>
@@ -105,7 +109,10 @@ export default function Habits() {
         {habits.map((h) => (
           <div key={h.id} style={{ display: "contents" }}>
             <div className="habit-name">
-              {h.name} <span className="streak">• streak: {streak(h.id)}d</span>
+              {h.name}{" "}
+              <span className="streak">
+                {copy.streakLabel.replace("{days}", streak(h.id))}
+              </span>
             </div>
             {week.map((d) => (
               <div
@@ -125,7 +132,7 @@ export default function Habits() {
       </div>
 
       <div className="small" style={{ marginTop: 8 }}>
-        Dica: mantenha poucos hábitos essenciais. Consistência &gt; volume.
+        {copy.tip}
       </div>
 
       <div className="row" style={{ marginTop: 8 }}>
@@ -135,7 +142,7 @@ export default function Habits() {
             className="button danger"
             onClick={() => removeHabit(h.id)}
           >
-            Remover “{h.name}”
+            {copy.removeButton.replace("{name}", h.name)}
           </button>
         ))}
       </div>

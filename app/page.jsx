@@ -10,9 +10,22 @@ import Settings from "@/components/Settings";
 import Habits from "@/components/Habits";
 import Insights from "@/components/Insights";
 import CommandPalette from "@/components/CommandPalette";
-import { TaskIcon, FocusIcon, StudyIcon, MoneyIcon, NoteIcon, HabitIcon, InsightsIcon, SettingsIcon } from "@/components/Icons";
+import {
+  TaskIcon,
+  FocusIcon,
+  StudyIcon,
+  MoneyIcon,
+  NoteIcon,
+  HabitIcon,
+  InsightsIcon,
+  SettingsIcon,
+} from "@/components/Icons";
+import { useI18n } from "@/components/I18nProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function Page() {
+  const { messages } = useI18n();
+  const text = messages.home;
   const [active, setActive] = useState("tarefas");
 
   // PWA install hint
@@ -120,20 +133,20 @@ export default function Page() {
     <div>
       <Tabs
         tabs={{
-          tarefas: { label: "Tarefas", icon: <TaskIcon/> },
-          foco: { label: "Foco", icon: <FocusIcon/> },
-          estudos: { label: "Estudos", icon: <StudyIcon/> },
-          financas: { label: "Finanças", icon: <MoneyIcon/> },
-          notas: { label: "Notas", icon: <NoteIcon/> },
-          habitos: { label: "Hábitos", icon: <HabitIcon/> },
-          insights: { label: "Insights", icon: <InsightsIcon/> },
-          config: { label: "Configurações", icon: <SettingsIcon/> },
+          tarefas: { label: text.tabs.tasks, icon: <TaskIcon /> },
+          foco: { label: text.tabs.focus, icon: <FocusIcon /> },
+          estudos: { label: text.tabs.study, icon: <StudyIcon /> },
+          financas: { label: text.tabs.finance, icon: <MoneyIcon /> },
+          notas: { label: text.tabs.notes, icon: <NoteIcon /> },
+          habitos: { label: text.tabs.habits, icon: <HabitIcon /> },
+          insights: { label: text.tabs.insights, icon: <InsightsIcon /> },
+          config: { label: text.tabs.settings, icon: <SettingsIcon /> },
         }}
         onChange={setActive}
       />
       <div className="tab-scope" data-active-tab={active}>
         <div className="notice small" style={{ marginBottom: 12 }}>
-          🧪 Esta é uma versão de testes — dados ficam apenas no seu dispositivo. Envie suas impressões!
+          {text.notice}
         </div>
         {active === "tarefas" && (
           <div className="grid">
@@ -150,12 +163,15 @@ export default function Page() {
         {active === "config" && <Settings />}
 
         <div style={{ marginTop: 16 }}>
-          <button id="install-btn" className="button primary" style={{ display: "none" }}>
-            Instalar no dispositivo
+          <button
+            id="install-btn"
+            className="button primary"
+            style={{ display: "none" }}
+            disabled
+          >
+            {text.install}
           </button>
-          <div className="small">
-            Atalhos: Ctrl+1..7 (abas), / (buscar tarefas), Espaço (Pomodoro)
-          </div>
+          <div className="small">{text.shortcuts}</div>
         </div>
 
         <CommandPalette />
@@ -163,5 +179,3 @@ export default function Page() {
     </div>
   );
 }
-
-

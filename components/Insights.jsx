@@ -1,6 +1,7 @@
 "use client";
 import { useMemo } from "react";
 import { load } from "@/lib/storage";
+import { useI18n } from "@/components/I18nProvider";
 
 function startOfWeek(d = new Date()) {
   const day = d.getDay() || 7; // dom->7
@@ -11,10 +12,17 @@ function startOfWeek(d = new Date()) {
 }
 
 export default function Insights() {
+  const { messages } = useI18n();
+  const copy = messages.insights;
   const tasks = load("tasks", []);
   const history = load("study_history", []);
   const finance = load("finance_items", []);
   const checks = load("habits_checks", {});
+
+  const isIncome = (value) => {
+    const key = (value || "").toString().toLowerCase();
+    return key === "income" || key === "receita" || key === "ingreso";
+  };
 
   const data = useMemo(() => {
     // Tarefas
@@ -36,8 +44,12 @@ export default function Insights() {
     // Finanças (mês atual)
     const ym = new Date().toISOString().slice(0, 7); // YYYY-MM
     const monthItems = finance.filter((i) => (i.date || "").startsWith(ym));
-    const inSum = monthItems.filter(i=>i.type==='Receita').reduce((a,b)=>a+b.amount,0);
-    const outSum = monthItems.filter(i=>i.type!=='Receita').reduce((a,b)=>a+b.amount,0);
+    const inSum = monthItems
+      .filter((i) => isIncome(i.type))
+      .reduce((a, b) => a + (b.amount || 0), 0);
+    const outSum = monthItems
+      .filter((i) => !isIncome(i.type))
+      .reduce((a, b) => a + (b.amount || 0), 0);
     const balance = inSum - outSum;
 
     // Hábitos (semana atual)
@@ -63,7 +75,7 @@ export default function Insights() {
       weekDays,
       minutesByTopic,
     };
-  }, [tasks, history, finance, checks]);
+  }, [tasks, history, finance, checks, isIncome]);
 
   const bar = (value, max = 100) => {
     const pct = Math.max(0, Math.min(100, Math.round((value / max) * 100)));
@@ -91,46 +103,96 @@ export default function Insights() {
 
   return (
     <div className="card">
-      <h3>Insights</h3>
+      <h3>{copy.title}</h3>
       <div className="grid" style={{ gridTemplateColumns: "repeat(2, 1fr)" }}>
         <div className="card">
-          <h4>Tarefas</h4>
+          <h4>{copy.tasks.title}</h4>
           <div className="row">
-            <span className="badge">Total: {data.tasks.totalTasks}</span>
-            <span className="badge">Concluídas: {data.tasks.doneTasks}</span>
-            <span className="badge" style={{ borderColor: "var(--warn)" }}>Hoje: {data.tasks.todayTasks}</span>
-            <span className="badge" style={{ borderColor: "var(--danger)" }}>Atrasadas: {data.tasks.overdueTasks}</span>
+            <span className="badge">
+              {copy.tasks.total}: {data.tasks.totalTasks}
+            </span>
+            <span className="badge">
+              {copy.tasks.done}: {data.tasks.doneTasks}
+            </span>
+            <span
+              className="badge"
+              style={{ borderColor: "var(--warn)" }}
+            >
+              {copy.tasks.today}: {data.tasks.todayTasks}
+            </span>
+            <span
+              className="badge"
+              style={{ borderColor: "var(--danger)" }}
+            >
+              {copy.tasks.overdue}: {data.tasks.overdueTasks}
+            </span>
           </div>
-          <div className="small" style={{ marginTop: 8 }}>Taxa de conclusão</div>
+          <div className="small" style={{ marginTop: 8 }}>
+            {copy.tasks.completion}
+          </div>
           {bar(data.tasks.completion, 100)}
         </div>
 
         <div className="card">
-          <h4>Estudos (semana)</h4>
+          <h4>{copy.study.title}</h4>
           <div className="row">
-            <span className="badge">Total: {data.study.totalStudy} min</span>
-            <span className="badge">Top: {data.study.topStudy[0]} • {data.study.topStudy[1]} min</span>
+            <span className="badge">
+              {copy.study.total}:{" "}
+              {copy.study.minutes.replace(
+                "{value}",
+                data.study.totalStudy
+              )}
+            </span>
+            <span className="badge">
+              {copy.study.top}: {data.study.topStudy[0]} •{" "}
+              {copy.study.minutes.replace(
+                "{value}",
+                data.study.topStudy[1]
+              )}
+            </span>
           </div>
           <div className="list">
             {Object.entries(data.minutesByTopic).map(([t, m]) => (
               <div className="item" key={t}>
                 <div style={{ flex: 1 }}>{t}</div>
                 <div style={{ width: 160 }}>{bar(m, Math.max(60, data.study.topStudy[1] || 60))}</div>
-                <div className="small" style={{ width: 60, textAlign: "right" }}>{m} min</div>
+                <div
+                  className="small"
+                  style={{ width: 60, textAlign: "right" }}
+                >
+                  {copy.study.minutes.replace("{value}", m)}
+                </div>
               </div>
             ))}
             {!Object.keys(data.minutesByTopic).length && (
-              <div className="notice small">Sem sessões esta semana.</div>
+              <div className="notice small">{copy.study.empty}</div>
             )}
           </div>
         </div>
 
         <div className="card">
-          <h4>Finanças (mês)</h4>
+          <h4>{copy.finance.title}</h4>
           <div className="row">
-            <span className="badge">Receitas: R$ {data.money.inSum.toFixed(2)}</span>
-            <span className="badge">Despesas: R$ {data.money.outSum.toFixed(2)}</span>
-            <span className="badge" style={{ borderColor: data.money.balance>=0? 'var(--ok)':'var(--danger)' }}>Saldo: R$ {data.money.balance.toFixed(2)}</span>
+            <span className="badge">
+              {copy.finance.income}: R${" "}
+              {data.money.inSum.toFixed(2)}
+            </span>
+            <span className="badge">
+              {copy.finance.expense}: R${" "}
+              {data.money.outSum.toFixed(2)}
+            </span>
+            <span
+              className="badge"
+              style={{
+                borderColor:
+                  data.money.balance >= 0
+                    ? "var(--ok)"
+                    : "var(--danger)",
+              }}
+            >
+              {copy.finance.balance}: R${" "}
+              {data.money.balance.toFixed(2)}
+            </span>
           </div>
           <div style={{marginTop:8}}>
             {sparkline([data.money.inSum, data.money.outSum, Math.max(0,data.money.balance)], Math.max(data.money.inSum, data.money.outSum, Math.abs(data.money.balance)||1))}
@@ -138,10 +200,15 @@ export default function Insights() {
         </div>
 
         <div className="card">
-          <h4>Hábitos (semana)</h4>
+          <h4>{copy.habits.title}</h4>
           <div className="row">
-            <span className="badge">Checks: {data.habits.habitChecks}/{data.habits.habitTotal}</span>
-            <span className="badge">Adesão: {data.habits.habitRate}%</span>
+            <span className="badge">
+              {copy.habits.checks}: {data.habits.habitChecks}/
+              {data.habits.habitTotal}
+            </span>
+            <span className="badge">
+              {copy.habits.adherence}: {data.habits.habitRate}%
+            </span>
           </div>
           <div style={{marginTop:8}}>
             {sparkline(
@@ -152,7 +219,7 @@ export default function Insights() {
         </div>
       </div>
       <div className="small" style={{ marginTop: 8 }}>
-        Dica: mantenha rotinas consistentes e revise metas semanalmente.
+        {copy.tip}
       </div>
     </div>
   );

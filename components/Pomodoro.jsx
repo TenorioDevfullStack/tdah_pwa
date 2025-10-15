@@ -1,8 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { load, save } from "@/lib/storage";
+import { useI18n } from "@/components/I18nProvider";
 
 export default function Pomodoro() {
+  const { messages } = useI18n();
+  const copy = messages.pomodoro;
   const [settings, setSettings] = useState(
     load("pomodoro_settings", { work: 25, short: 5, long: 15, cycles: 4 })
   );
@@ -26,8 +29,11 @@ export default function Pomodoro() {
   useEffect(() => {
     if (seconds === 0) {
       if ("Notification" in window && Notification.permission === "granted") {
-        new Notification("Pomodoro", {
-          body: mode === "work" ? "Hora do descanso!" : "Hora de focar!",
+        new Notification(copy.notificationTitle, {
+          body:
+            mode === "work"
+              ? copy.notificationBreak
+              : copy.notificationFocus,
         });
       }
       if (mode === "work") {
@@ -62,27 +68,32 @@ export default function Pomodoro() {
 
   const mm = String(Math.floor(seconds / 60)).padStart(2, "0");
   const ss = String(seconds % 60).padStart(2, "0");
+  const modeLabel = copy.modes[mode] || mode;
 
   return (
     <div className="card">
-      <h3>Foco (Pomodoro)</h3>
+      <h3>{copy.title}</h3>
       <div className="timer">
         {mm}:{ss}
       </div>
       <div className="row">
         <button className="button primary" onClick={() => setRunning(!running)}>
-          {running ? "Pausar" : "Iniciar"}
+          {running ? copy.pause : copy.start}
         </button>
         <button className="button ghost" onClick={() => resetTo(mode)}>
-          Reiniciar
+          {copy.reset}
         </button>
-        <span className="badge">Modo: {mode}</span>
-        <span className="badge">Ciclo: {cycle}</span>
+        <span className="badge">
+          {copy.modeLabel}: {modeLabel}
+        </span>
+        <span className="badge">
+          {copy.cycleLabel}: {cycle}
+        </span>
       </div>
       <hr />
       <div className="row">
         <label className="small">
-          Foco (min){" "}
+          {copy.inputs.work}{" "}
           <input
             className="input"
             type="number"
@@ -96,7 +107,7 @@ export default function Pomodoro() {
           />
         </label>
         <label className="small">
-          Pausa curta{" "}
+          {copy.inputs.short}{" "}
           <input
             className="input"
             type="number"
@@ -110,7 +121,7 @@ export default function Pomodoro() {
           />
         </label>
         <label className="small">
-          Pausa longa{" "}
+          {copy.inputs.long}{" "}
           <input
             className="input"
             type="number"
@@ -124,7 +135,7 @@ export default function Pomodoro() {
           />
         </label>
         <label className="small">
-          Ciclos p/longa{" "}
+          {copy.inputs.cycles}{" "}
           <input
             className="input"
             type="number"
@@ -139,7 +150,7 @@ export default function Pomodoro() {
         </label>
       </div>
       <div className="small">
-        Dica: ative as notificações do navegador para alertas.
+        {copy.tip}
       </div>
     </div>
   );
